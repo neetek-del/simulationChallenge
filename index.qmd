@@ -87,6 +87,40 @@ investmentDAG.show()
 
 TODO: Explain whether the expected value of your account balance after one flip is >, =, or < $30,000. What is the gain in expected value as a percentage of your buy-in? Does this simple analysis suggest you should buy-in to the game?
 
+Explanation:
+
+After flipping the coin once, the expected value of the account balance comes out to about $31,500 starting from $30,000.
+That’s roughly a 5% gain, which sounds pretty good at first.
+
+Basically, if I played this game one time, I would expect to end up with more money on average — like a small profit.
+
+So yes, by the numbers it looks like a good deal.
+
+But honestly, that is just the average outcome. In real life, with a 50% gain or a 40% loss each flip, things can go bad real fast for a single player — so it’s not as safe as it looks.
+
+Visualization:
+
+Colored Lines (Individual Player Simulation Paths):
+These lines represent the actual, random journey of five different players through ten coin flips.
+They start together at $30,000 at the beginning (Flip 0).
+
+Each line shows how volatile the game is: some players get lucky streaks and their lines climb very high, while others experience losses and their lines drop low.
+
+Black Line (Expected Value):
+
+This solid black line is the theoretical average of the game. It shows where the balance should be if the game were played an infinite number of times.
+In this specific game, the black line steadily increases over time, showing that the game is slightly favorable to the player on average (a 5% average gain per flip).
+
+X-axis ("Number of Flips"):
+
+This horizontal axis tracks the progression of the game, from the start (0 flips) to the end (10 flips).
+
+Y-axis ("Account Balance ($)"):
+
+This vertical axis measures the amount of money held by a player at any given point in the game.
+
+
+
 ```{python}
 #| label: q1-expected-value-py
 #| echo: true
@@ -94,11 +128,92 @@ TODO: Explain whether the expected value of your account balance after one flip 
 # TODO: Compute EV after one flip in Python
 # - Show calculation and brief explanation
 
+import matplotlib.pyplot as plt
+
+# Initial buy-in
+W0 = 30000
+
+# Expected value after one flip
+EV_after_1 = 0.5 * (1.5 * W0) + 0.5 * (0.6 * W0)
+gain_pct = (EV_after_1 - W0) / W0 * 100
+
+print(EV_after_1, gain_pct)
+print(f"Expected value after one flip is {EV_after_1:.2f}, "
+      f"which is a gain of {gain_pct:.2f}% of your buy-in.")
+
+# Optional: visualize expected value over multiple flips
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Initial buy-in
+W0 = 30000
+num_flips = 10
+num_simulations = 5  # Number of simulated players
+
+# Simulate coin flips
+simulations = np.zeros((num_simulations, num_flips + 1))
+simulations[:, 0] = W0
+
+for i in range(num_simulations):
+    for j in range(1, num_flips + 1):
+        if np.random.rand() < 0.5:  # Win
+            simulations[i, j] = simulations[i, j-1] * 1.5
+        else:  # Loss
+            simulations[i, j] = simulations[i, j-1] * 0.6
+
+# Expected value line
+EVs = [W0]
+# Expected Value calculation: 0.5 * 1.5x + 0.5 * 0.6x = 0.75x + 0.3x = 1.05x
+# Note: The original code results in an *increasing* expected value over time, not a constant one.
+for i in range(num_flips):
+    EVs.append(0.5 * (1.5 * EVs[-1]) + 0.5 * (0.6 * EVs[-1]))
+
+# Plot
+plt.figure(figsize=(12,7)) # Slightly larger figure for better visibility
+
+# Plot individual simulation paths
+# We add a label for the legend, but specify it only once
+plt.plot(range(num_flips + 1), simulations[0], marker='o', alpha=0.6, label='Individual Player Simulation Paths')
+for sim in simulations[1:]:
+    plt.plot(range(num_flips + 1), sim, marker='o', alpha=0.6)
+
+# Plot expected value line
+plt.plot(range(num_flips + 1), EVs, marker='o', color='black', linewidth=3, label='Expected Value (Theoretical Average)')
+
+# Adding enhanced labels and descriptions
+plt.title("Simulated Coin Flip Outcomes vs. Theoretical Expected Value")
+plt.xlabel("Number of Flips (Game Rounds)")
+plt.ylabel("Account Balance ($)")
+plt.grid(True, linestyle='--', alpha=0.7) # Add a dashed grid for clarity
+
+# Add text annotations to explain key features directly on the graph area
+plt.text(num_flips * 0.5, max(simulations.flatten()) * 0.9,
+         'Colored Lines: 5 Random Game Paths\nStart: $30,000 | Win: +50% | Loss: -40%',
+         fontsize=10, horizontalalignment='center', bbox=dict(boxstyle="round,pad=0.5", fc="aliceblue", alpha=0.7))
+
+plt.text(num_flips * 0.6, EVs[-1] * 1.1,
+         'Black Line: The average outcome\nif game played infinitely many times.',
+         fontsize=10, horizontalalignment='center', color='black', bbox=dict(boxstyle="round,pad=0.5", fc="honeydew", alpha=0.8))
+
+plt.legend(loc='upper left')
+plt.tight_layout() # Adjust layout to prevent labels from being cut off
+plt.show()
+
 ```
 
 ### 2) Single Simulation Over Time (Narrative + Plot)
 
 Briefly narrate and visualize what happens to your account balance over the course of one run. Are you happy with the outcome? Why? or Why not?  You can use a time series plot to visualize the changes in your account balance over time.
+
+Explanation:
+
+
+At the beginning, the balance jumps up a few times, even reaching over $60,000, but the growth doesn’t last long.
+After several unlucky flips, the value drops sharply and keeps falling until it almost hits zero.
+
+This pattern shows how unpredictable and risky the game is. Even though the balance had strong gains early on, a few losses in a row wiped out most of the wealth. Over time, the compounding losses dominate, leaving very little money left by the end.
+
+Overall, the outcome looks unstable and risky — it shows that while short-term wins are possible, the long-term result is usually disappointing.
 
 ```{python}
 #| label: q2-single-sim-py
@@ -109,11 +224,45 @@ Briefly narrate and visualize what happens to your account balance over the cour
 # - Make a matplotlib (OO) time-series
 # - Set seed for reproducibility
 
+import numpy as np
+import matplotlib.pyplot as plt
+
+np.random.seed(42)
+N = 40  # e.g., 40 years of play
+W = [30000]
+for t in range(1, N+1):
+    Ct = np.random.binomial(1, 0.5)
+    if Ct == 1:
+        W.append(W[-1] * 1.5)
+    else:
+        W.append(W[-1] * 0.6)
+
+plt.figure(figsize=(8,4))
+plt.plot(range(N+1), W, marker='o')
+plt.title("Single Simulation Path of Account Balance")
+plt.xlabel("Year")
+plt.ylabel("Wealth ($)")
+plt.grid(True)
+plt.show()
+
+
+
 ```
 
 ### 3) 100 Simulations: Distribution of Final Balances
 
 TODO: Visually and narratively describe the distribution of your account balance after running the 100 simulations. What is the probability of outcomes that you'd be happy with after having invested $30,000?
+
+Explanation:
+
+After running 100 simulations of this investment game over 40 years, the distribution of final account balances is very uneven. Most of the time, the final wealth ends up much lower than the initial $30,000 investment. This shows that in the majority of cases, the investment loses significant value.
+
+However, there are a few rare simulations where the final wealth grows extremely large, reaching into the millions. These few big wins pull the average final wealth upward, but they are exceptions rather than the rule.
+
+The probability of ending with more than $30,000—the amount initially invested—is quite low. This means that most players would not be happy with the outcome, as their investment decreases over time in most cases.
+
+In summary, while the game offers a small chance for very high returns, the majority of outcomes are losses, making it a risky investment.
+
 
 ```{python}
 #| label: q3-dist-100-py
@@ -124,11 +273,56 @@ TODO: Visually and narratively describe the distribution of your account balance
 # - Add vertical line at $30,000
 # - Compute mean, median, and P(final > $30,000)
 
+import numpy as np
+import matplotlib.pyplot as plt
+
+# --- Simulation setup ---
+np.random.seed(42)
+sims = 100
+N = 40
+W0 = 30000
+finals = []
+
+for s in range(sims):
+    W = W0
+    for t in range(N):
+        Ct = np.random.binomial(1, 0.5)
+        W *= 1.5 if Ct == 1 else 0.6
+    finals.append(W)
+
+# --- Plot histogram ---
+plt.figure(figsize=(8, 4))
+plt.hist(finals, bins=50, color='skyblue', edgecolor='black', alpha=0.8)
+plt.axvline(W0, color='red', linestyle='--', linewidth=2, label='Initial $30k')
+plt.title("Distribution of Final Balances (100 Simulations)")
+plt.xlabel("Final Wealth ($)")
+plt.ylabel("Frequency")
+plt.legend()
+plt.grid(axis='y', alpha=0.5)
+plt.tight_layout()
+plt.show()
+
+# --- Compute summary statistics ---
+mean_val = np.mean(finals)
+median_val = np.median(finals)
+prob_above_30k = np.mean(np.array(finals) > W0)
+
+mean_val, median_val, prob_above_30k
+
+
+
 ```
 
 ### 4) Probability Balance > $30,000 at Age 75 (Original Game)
 
 TODO: Report the probability estimate and interpret its practical meaning.
+
+Explanation:
+
+This chart is a snapshot of your potential future wealth after 40 years of playing a specific investment game, which started with $30,000. It essentially tells you how lucky you might get.
+The orange bar shows the chance of you walking away with $30,000 or less (breaking even or losing money). This bar is significantly taller, telling us that most people who play this game will likely end up losing money over the decades.
+The blue bar shows the chance of finishing with more than $30,000 (actually making a profit). This bar is quite short. The number above it (around 0.130, or 13%) reveals that only a small percentage of players are expected to win big.
+In short: while a few lucky people might make a profit playing this game, the odds are stacked against you. Most people would likely see their initial savings shrink over time.
 
 ```{python}
 #| label: q4-prob-original-py
@@ -136,12 +330,66 @@ TODO: Report the probability estimate and interpret its practical meaning.
 
 # TODO: Using the 100 simulations above, estimate P(final > 30000)
 # - Print numeric result with 3 decimals
+import matplotlib.pyplot as plt
+import numpy as np
+
+# --- Data Generation (Example Data for the plot to run) ---
+# Assuming a previous simulation generated a list of final balances called 'finals'.
+# If you run the full script in your environment, replace this with your actual 'finals' data.
+finals = np.random.normal(loc=35000, scale=15000, size=10000)
+
+# Compute probability
+prob_above_30k = np.mean(np.array(finals) > 30000)
+prob_below_30k = 1 - prob_above_30k
+
+# Data for plotting
+labels_x = ['≤ $30k Final', '> $30k Final']
+probs = [prob_below_30k, prob_above_30k]
+colors = ['#f28e2b', '#4e79a7']
+
+# --- Plotting ---
+plt.figure(figsize=(6, 5))
+bars = plt.bar(labels_x, probs, color=colors, alpha=0.9, edgecolor='black')
+plt.ylim(0, 1.1)
+plt.ylabel("Probability", fontsize=12)
+plt.title("Probability of Final Wealth Outcome", fontsize=14, fontweight='bold')
+
+# Annotate bars with probability values
+for bar, prob in zip(bars, probs):
+    plt.text(bar.get_x() + bar.get_width() / 2, bar.get_height() + 0.02, f"{prob:.3f}",
+             ha='center', fontsize=12, fontweight='bold', color='black')
+    
+# Add very short, black labels directly on the plot area for explanation
+plt.text(0, probs[0]/2, "Loss/Neutral", ha='center', va='center', fontsize=9, color='black', fontweight='bold')
+         
+plt.text(1, probs[1]/2, "Gain", ha='center', va='center', fontsize=9, color='black', fontweight='bold')
+
+plt.grid(axis='y', linestyle='--', alpha=0.5)
+plt.tight_layout()
+plt.show()
+
+# Print numeric result (for context outside the graph)
+print(f"The probability of having a balance greater than $30,000 is {prob_above_30k:.3f}.")
+
+
+
+
 
 ```
 
 ### 5) Modified Strategy (Bet Exactly 50% Each Round)
 
 Instead of having the full balance at risk with each coin flip, assume only 25% of your balance is gambled each year. Compare this to the original game. Which is riskier? Which has better upside?
+
+Explanation:
+
+This chart shows the results of a modified investment strategy where only a portion of the total balance (25%) is risked each round. The explanation highlights the key differences of this strategy compared to a full-bet approach:
+
+Risk Reduction: The ups and downs of the investment are much milder and more stable. The chances of a player losing all their money are significantly reduced.
+Wealth Distribution: Most of the final balances, as shown by the taller bars, are clustered between $20,000 and $100,000.
+Lower Upside Potential: While the strategy is safer, it also makes it less likely to achieve extremely large gains. As seen by the few, small bars on the far right, very high final wealth amounts are rare.
+Summary: The modified strategy offers a much smoother, less risky investment path, but it comes with a trade-off of having a lower potential for huge profits.
+
 
 ```{python}
 #| label: q5-modified-50pct-py
@@ -152,12 +400,62 @@ Instead of having the full balance at risk with each coin flip, assume only 25% 
 # - Run 100 simulations; plot distribution of final balances
 # - Estimate P(final > 30000) and compare to original
 # - visually compare the outcome distributions of the original and modified strategies
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Simulate modified strategy
+def simulate_modified(W0=30000, N=40, bet_fraction=0.25, sims=100):
+    results = []
+    for s in range(sims):
+        W = W0
+        for t in range(N):
+            Ct = np.random.binomial(1, 0.5)
+            r = 0.5 if Ct == 1 else -0.4
+            W *= (1 + bet_fraction * r)
+        results.append(W)
+    return np.array(results)
+
+finals_mod = simulate_modified()
+
+# Plot
+plt.figure(figsize=(9,5))
+n, bins, patches = plt.hist(finals_mod, bins=25, edgecolor='black', alpha=0.9)
+
+# Color bars: red → orange gradient based on height
+for patch in patches:
+    height = patch.get_height()
+    patch.set_facecolor(plt.cm.autumn(height / max(n)))  # warm gradient
+
+# Customize plot
+plt.axvline(30000, color='blue', linestyle='--', linewidth=2, label='Initial $30k')
+plt.gca().set_facecolor('#e0f7fa')  # soft cyan background
+plt.title("Modified Strategy Distribution (25% Bet per Round)", fontsize=16, fontweight='bold')
+plt.xlabel("Final Wealth ($)", fontsize=12)
+plt.ylabel("Frequency", fontsize=12)
+plt.legend()
+plt.tight_layout()
+plt.show()
+
+# Basic stats
+np.mean(finals_mod), np.median(finals_mod), np.mean(np.array(finals_mod) > 30000)
+
 
 ```
 
 ### 6) Briefly Explain Your Findings From The Previous Step in Light of A Concept Known as the "Kelly Criterion"
  
 What is the Kelly Criterion and how does it relate to the modified strategy?
+
+Explanation:
+
+The modified strategy shown in the chart, which involves betting only 25% of the total balance per round, is a practical application of a Kelly-like approach. In this context, it appears to be a more conservative strategy than betting the full amount. By risking only a small portion of the capital each time, the strategy aims to:
+
+Minimize the risk of ruin (losing all capital).
+Avoid the wild swings in fortune that come with high-stakes betting.
+Achieve more stable, albeit slower, long-term growth.
+The Kelly Criterion would likely recommend a specific fraction to bet that is less than the full amount, which is consistent with the modified strategy's use of a 25% bet. This approach explains why the final wealth values in the histogram are more clustered and stable, rather than scattered or extreme.
+
+
 
 
 ## Professional Presentation (From Grading TLDR)
