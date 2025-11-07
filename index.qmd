@@ -237,7 +237,6 @@ Briefly narrate and visualize what happens to your account balance over the cour
 
 Explanation:
 
-
 At the beginning, the balance jumps up a few times, even reaching over $60,000, but the growth doesn’t last long.
 After several unlucky flips, the value drops sharply and keeps falling until it almost hits zero.
 
