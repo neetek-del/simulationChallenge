@@ -149,16 +149,16 @@ In summary - This visualization compares five simulated player outcomes with the
 #| label: q1-expected-value-py
 #| echo: true
 
-# TODO: Compute EV after one flip in Python
-# - Show calculation and brief explanation
-
-import matplotlib.pyplot as plt
 import numpy as np
+import matplotlib.pyplot as plt
 
-# Initial buy-in
-W0 = 30000.0  # Use float for consistency
+# --- Parameters ---
+W0 = 30000.0               # Initial buy-in
+num_flips = 10             # Number of flips
+n_paths = 5                # Number of simulated players
+np.random.seed(2025)       # For reproducibility
 
-# Expected value after one flip
+# --- Expected value after one flip ---
 EV_after_1 = 0.5 * (1.5 * W0) + 0.5 * (0.6 * W0)
 gain_pct = (EV_after_1 - W0) / W0 * 100
 
@@ -166,60 +166,40 @@ print(f"EV after 1 flip = ${EV_after_1:,.2f}  ({gain_pct:.2f}%)")
 print(f"Expected value after one flip is {EV_after_1:.2f}, "
       f"which is a gain of {gain_pct:.2f}% of your buy-in.")
 
-# Optional: visualize expected value over multiple flips
-import numpy as np
-import matplotlib.pyplot as plt
-
-# Initial buy-in
-W0 = 30000.0
-num_flips = 10
-num_simulations = 5  # Number of simulated players
-
-# Simulate coin flips (this block is a duplicate of the later visualization and can be removed or kept for a simpler run)
-simulations = np.zeros((num_simulations, num_flips + 1))
-simulations[:, 0] = W0
-
-for i in range(num_simulations):
-    for j in range(1, num_flips + 1):
-        if np.random.rand() < 0.5:  # Win
-            simulations[i, j] = simulations[i, j-1] * 1.5
-        else:  # Loss
-            simulations[i, j] = simulations[i, j-1] * 0.6
-
-# Show EV growth over a few flips (theoretically multiplies by 1.05 each flip)
-
-num_flips = 10
+# --- Theoretical EV growth (1.05x per flip) ---
 EVs = [W0 * (1.05 ** t) for t in range(num_flips + 1)]
 
-# Plot example simulation paths (5 random players) vs EV
-
-np.random.seed(2025) # Seed for reproducibility
-n_paths = 5
+# --- Simulate random paths for multiple players ---
 paths = np.zeros((n_paths, num_flips + 1))
 paths[:, 0] = W0
 
 for i in range(n_paths):
-    for t in range(1, num_flips + 1): # Added correct indentation
-        win = np.random.rand() < 0.5 # Replaced undefined 'RNG.random()' with 'np.random.rand()'
+    for t in range(1, num_flips + 1):
+        win = np.random.rand() < 0.5
         paths[i, t] = paths[i, t-1] * (1.5 if win else 0.6)
 
-# Define a simple color palette if PALETTE is not defined elsewhere
-try:
-    PALETTE
-except NameError:
-    PALETTE = {"highlight": "orangered"}
+# --- Define colors ---
+PALETTE = {"highlight": "orangered", "path": "steelblue"}
 
-plt.figure(figsize=(10,4.5))
+# --- Plot ---
+fig, ax = plt.subplots(figsize=(5.5, 3))  # compact size for GitHub/Quarto
+
+# Player paths
 for i in range(n_paths):
-    plt.plot(range(num_flips+1), paths[i], marker='o', alpha=0.8, label=f'Player {i+1}', linewidth=1.8)
-plt.plot(range(num_flips+1), EVs, marker='s', color=PALETTE["highlight"], linewidth=3, label='Expected Value (1.05^t)')
+    ax.plot(range(num_flips + 1), paths[i], marker='o', 
+            alpha=0.8, linewidth=1.5, color=PALETTE["path"], label=None)
 
-plt.title("Five Example Paths vs Theoretical Expected Value")
-plt.xlabel("Number of Flips")
-plt.ylabel("Account Balance ($)")
-plt.grid(alpha=0.25, linestyle='--')
-plt.legend(loc='upper left')
-plt.tight_layout()
+# Expected value line
+ax.plot(range(num_flips + 1), EVs, marker='s', color=PALETTE["highlight"],
+        linewidth=2.5, label='Expected Value (1.05ⁿ)')
+
+# --- Styling ---
+ax.set_title("Five Example Paths vs Theoretical Expected Value", fontsize=10, pad=8)
+ax.set_xlabel("Number of Flips", fontsize=9)
+ax.set_ylabel("Account Balance ($)", fontsize=9)
+ax.grid(alpha=0.25, linestyle='--')
+ax.legend(loc='upper center', bbox_to_anchor=(0.5, -0.2), ncol=1, fontsize=8, frameon=False)
+plt.tight_layout(pad=1.0)
 plt.show()
 
 
@@ -244,6 +224,10 @@ Overall, the outcome looks unstable and risky — it shows that while short-term
 #| fig-cap: "Single 40-year simulation path (Ocean Blue palette)"
 #| echo: true
 
+#| label: q2-single-sim-py
+#| fig-cap: "Single 40-year simulation path (Ocean Blue palette)"
+#| echo: true
+
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -252,7 +236,7 @@ W0 = 30000.0            # Starting balance
 N = 40                  # Number of flips (years)
 np.random.seed(2025)    # Reproducibility
 
-# Color palette
+# --- Color palette ---
 PALETTE = {
     "path": "steelblue",
     "initial": "darkred",
@@ -267,33 +251,41 @@ for _ in range(N):
     W.append(W[-1] * (1.5 if win else 0.6))
 
 # --- Plot ---
-plt.figure(figsize=(10, 4.2))
-plt.plot(range(N+1), W, marker='o', linewidth=2,
-         label='Single Simulation Path', color=PALETTE["path"])
+fig, ax = plt.subplots(figsize=(5.5, 3))  # compact size for GitHub/Quarto
 
-plt.axhline(W0, color=PALETTE["initial"], linestyle='--', linewidth=2,
-            label="Initial $30k")
+ax.plot(range(N + 1), W, marker='o', linewidth=1.8,
+        label='Single Simulation Path', color=PALETTE["path"])
 
-plt.title("Single Simulation Path of Account Balance (40 Years)")
-plt.xlabel("Year")
-plt.ylabel("Balance ($)")
-plt.grid(alpha=0.25)
-plt.legend()
+ax.axhline(W0, color=PALETTE["initial"], linestyle='--', linewidth=1.8,
+           label="Initial $30k")
 
-# Annotation for final value
-plt.annotate(
+# --- Titles and labels ---
+ax.set_title("Single Simulation Path of Account Balance (40 Years)", fontsize=10, pad=8)
+ax.set_xlabel("Year", fontsize=9)
+ax.set_ylabel("Balance ($)", fontsize=9)
+ax.grid(alpha=0.25, linestyle='--')
+
+# --- Legend below plot ---
+ax.legend(loc='upper center', bbox_to_anchor=(0.5, -0.25),
+          fontsize=8, frameon=False, ncol=1)
+
+# --- Annotation for final value ---
+ax.annotate(
     f"Final: ${W[-1]:,.0f}",
     xy=(N, W[-1]),
-    xytext=(N - 6, max(W) * 0.7),
-    arrowprops=dict(arrowstyle="->", color=PALETTE["highlight"]),
-    bbox=dict(boxstyle="round,pad=0.3", fc=PALETTE["box"])
+    xytext=(N - 10, max(W) * 0.75),
+    arrowprops=dict(arrowstyle="->", color=PALETTE["highlight"], lw=1),
+    bbox=dict(boxstyle="round,pad=0.3", fc=PALETTE["box"], ec="none"),
+    fontsize=8
 )
 
-plt.tight_layout()
+plt.tight_layout(pad=1.0)
 plt.show()
 
-# --- Print summary ---
+# --- Summary printout ---
 print(f"Starting balance: ${W0:,.2f}")
+print(f"Final balance after {N} years: ${W[-1]:,.2f}")
+
 
 
 ```
@@ -316,53 +308,61 @@ Explanation:
 
 
 ```{python}
+#| label: q3-final-distribution-py
+#| fig-cap: "Distribution of Final Balances Across 100 Simulations"
+#| echo: true
+
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.ticker import FuncFormatter
 
-# 🔧 Temporary placeholders if not already defined
-# Remove these lines if you already have real simulation data
+# --- Placeholder data (only used if 'finals' not defined earlier) ---
 try:
     finals
 except NameError:
     np.random.seed(0)
-    finals = np.random.lognormal(mean=10.2, sigma=0.5, size=100) * 1000  # fake data
+    finals = np.random.lognormal(mean=10.2, sigma=0.5, size=100) * 1000  # synthetic data
     W0 = 30000
     mean_final = np.mean(finals)
     median_final = np.median(finals)
 
-plt.figure(figsize=(14, 6))
+# --- Plot setup ---
+fig, ax = plt.subplots(figsize=(5.5, 3))  # smaller and consistent with other charts
 
-# Use log scale for x-axis
+# Define bins (log scale)
 bins = np.logspace(np.log10(finals.min()), np.log10(finals.max()), 22)
 
-counts, bins, patches = plt.hist(
+# Histogram
+counts, bins, patches = ax.hist(
     finals,
     bins=bins,
     edgecolor='black',
-    linewidth=1.2
+    linewidth=1.0
 )
 
+# --- Color bins by threshold ---
 for patch, left_edge in zip(patches, bins[:-1]):
-    if left_edge < W0:
-        patch.set_facecolor("#ff6b6b")   # light red
-    else:
-        patch.set_facecolor("#4db6ac")   # teal/green
+    patch.set_facecolor("#ff6b6b" if left_edge < W0 else "#4db6ac")
 
-plt.axvline(W0, color="#d32f2f", linestyle="--", linewidth=3, label="Initial $30k")
-plt.axvline(mean_final, color="#2e7d32", linestyle="-", linewidth=3, label="Mean")
-plt.axvline(median_final, color="#1565c0", linestyle=":", linewidth=3, label="Median")
+# --- Reference lines ---
+ax.axvline(W0, color="#d32f2f", linestyle="--", linewidth=2, label="Initial $30k")
+ax.axvline(np.mean(finals), color="#2e7d32", linestyle="-", linewidth=2, label="Mean")
+ax.axvline(np.median(finals), color="#1565c0", linestyle=":", linewidth=2, label="Median")
 
-plt.xscale("log")
+# --- Scales and formatting ---
+ax.set_xscale("log")
+ax.xaxis.set_major_formatter(FuncFormatter(lambda x, _: f"${x/1000:,.0f}k"))
 
-plt.gca().xaxis.set_major_formatter(FuncFormatter(lambda x, _: f"${x/1000:,.0f}k"))
+# --- Labels and styling ---
+ax.set_title("Distribution of Final Balances Across 100 Simulations", fontsize=10, pad=8)
+ax.set_xlabel("Final Account Balance ($, log scale)", fontsize=9)
+ax.set_ylabel("Count", fontsize=9)
+ax.grid(axis='y', alpha=0.3, linestyle='--')
 
-plt.title("Distribution of Final Balances Across 100 Simulations", fontsize=16)
-plt.xlabel("Final Account Balance ($ k, log scale)", fontsize=13)
-plt.ylabel("Count", fontsize=13)
-plt.grid(axis='y', alpha=0.35, linestyle='--')
-plt.legend(fontsize=12)
-plt.tight_layout()
+# --- Legend below chart ---
+ax.legend(loc='upper center', bbox_to_anchor=(0.5, -0.25), fontsize=8, frameon=False, ncol=2)
+
+plt.tight_layout(pad=1.0)
 plt.show()
 
 
