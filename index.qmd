@@ -247,46 +247,53 @@ Overall, the outcome looks unstable and risky — it shows that while short-term
 import numpy as np
 import matplotlib.pyplot as plt
 
-# Define W0 and a simple color palette if not defined in a previous cell
-try:
-    W0
-except NameError:
-    W0 = 30000.0
+# --- Settings ---
+W0 = 30000.0            # Starting balance
+N = 40                  # Number of flips (years)
+np.random.seed(2025)    # Reproducibility
 
-try:
-    PALETTE
-except NameError:
-    PALETTE = {"accent2": "steelblue", "accent": "darkred", "highlight": "orangered", "soft": "bisque"}
+# Color palette
+PALETTE = {
+    "path": "steelblue",
+    "initial": "darkred",
+    "highlight": "orangered",
+    "box": "bisque"
+}
 
-
-np.random.seed(2025)
-N = 40
+# --- Single simulation path ---
 W = [W0]
-for t in range(1, N+1):
-    if np.random.rand() < 0.5: # Replaced undefined 'RNG.random()' with 'np.random.rand()'
-        W.append(W[-1] * 1.5)
-    else:
-        W.append(W[-1] * 0.6)
+for _ in range(N):
+    win = np.random.rand() < 0.5
+    W.append(W[-1] * (1.5 if win else 0.6))
 
-plt.figure(figsize=(10,4.2))
-plt.plot(range(N+1), W, marker='o', linewidth=2, label='Single Simulation Path', color=PALETTE["accent2"])
-plt.axhline(W0, color=PALETTE["accent"], linestyle='--', linewidth=2, label="Initial $30k")
+# --- Plot ---
+plt.figure(figsize=(10, 4.2))
+plt.plot(range(N+1), W, marker='o', linewidth=2,
+         label='Single Simulation Path', color=PALETTE["path"])
+
+plt.axhline(W0, color=PALETTE["initial"], linestyle='--', linewidth=2,
+            label="Initial $30k")
+
 plt.title("Single Simulation Path of Account Balance (40 Years)")
 plt.xlabel("Year")
 plt.ylabel("Balance ($)")
 plt.grid(alpha=0.25)
 plt.legend()
 
-# Annotate final value
+# Annotation for final value
+plt.annotate(
+    f"Final: ${W[-1]:,.0f}",
+    xy=(N, W[-1]),
+    xytext=(N - 6, max(W) * 0.7),
+    arrowprops=dict(arrowstyle="->", color=PALETTE["highlight"]),
+    bbox=dict(boxstyle="round,pad=0.3", fc=PALETTE["box"])
+)
 
-plt.annotate(f"Final: ${W[-1]:,.0f}", xy=(N, W[-1]), xytext=(N-6, max(W)*0.7),
-             arrowprops=dict(arrowstyle="->", color=PALETTE["highlight"]), bbox=dict(boxstyle="round,pad=0.3", fc=PALETTE["soft"]))
 plt.tight_layout()
 plt.show()
 
+# --- Print summary ---
 print(f"Starting balance: ${W0:,.2f}")
-print(f"Final balance after {N} flips: ${W[-1]:,.2f}")
-
 
 
 ```
@@ -307,69 +314,36 @@ In summary, while the game offers a small chance for very high returns, the majo
 
 
 ```{python}
-#| label: q3-dist-100-py
-#| fig-cap: "Histogram of final balances across 100 simulations (Ocean Blue gradient)"
-#| echo: true
+plt.figure(figsize=(14, 6))
 
-import numpy as np
-import matplotlib.pyplot as plt
+# Use log scale for x-axis
+bins = np.logspace(np.log10(finals.min()), np.log10(finals.max()), 22)
 
-# Define W0 and a simple color palette if not defined in a previous cell
-try:
-    W0
-except NameError:
-    W0 = 30000.0
+counts, bins, patches = plt.hist(
+    finals,
+    bins=bins,
+    edgecolor='black',
+    linewidth=1.2
+)
 
-try:
-    PALETTE
-except NameError:
-    PALETTE = {"highlight": "orangered"}
+for patch, left_edge in zip(patches, bins[:-1]):
+    if left_edge < W0:
+        patch.set_facecolor("#ff6b6b")   # light red
+    else:
+        patch.set_facecolor("#4db6ac")   # teal/green
 
-np.random.seed(2025)
-sims = 100
-N = 40
-finals = []
-for s in range(sims):
-    Wt = W0
-    for t in range(N):
-        if np.random.rand() < 0.5: # Corrected from undefined 'RNG.random()'
-            Wt *= 1.5
-        else:
-            Wt *= 0.6
-    finals.append(Wt)
-finals = np.array(finals)
+plt.axvline(W0, color="#d32f2f", linestyle="--", linewidth=3, label="Initial $30k")
+plt.axvline(mean_final, color="#2e7d32", linestyle="-", linewidth=3, label="Mean")
+plt.axvline(median_final, color="#1565c0", linestyle=":", linewidth=3, label="Median")
 
-mean_final = finals.mean()
-median_final = np.median(finals)
-prob_above_30k = np.mean(finals > W0)
-
-print(f"Mean final balance: ${mean_final:,.2f}")
-print(f"Median final balance: ${median_final:,.2f}")
-print(f"P(final > $30k): {prob_above_30k:.3f}")
-
-# Histogram with Ocean blue gradient
-
-plt.figure(figsize=(10,4.5))
-# Use 'auto' to let matplotlib select an optimal number of bins
-counts, bins, patches = plt.hist(finals, bins='auto', edgecolor='black', alpha=0.9)
-
-# Color gradient for the bars
-maxh = counts.max()
-for patch, h in zip(patches, counts):
-    intensity = 0.3 + 0.7 * (h / maxh)
-    patch.set_facecolor((0.0, 0.45 * intensity + 0.1, 0.65 * intensity + 0.15))
-
-plt.axvline(W0, color=PALETTE["highlight"], linestyle='--', linewidth=2, label='Initial $30k')
-plt.axvline(mean_final, color="#023E58", linestyle='-', linewidth=2, label='Mean final')
-plt.axvline(median_final, color="#2AB7CA", linestyle=':', linewidth=2, label='Median final')
-plt.title("Distribution of Final Balances (100 simulations, 40 years)")
-plt.xlabel("Final Balance ($)")
-plt.ylabel("Frequency")
-plt.legend(loc='upper right')
-plt.grid(axis='y', alpha=0.15)
+plt.xscale("log")  # important for clarity
+plt.title("Distribution of Final Balances Across 100 Simulations", fontsize=16)
+plt.xlabel("Final Account Balance ($)", fontsize=13)
+plt.ylabel("Count", fontsize=13)
+plt.grid(axis='y', alpha=0.35, linestyle='--')
+plt.legend(fontsize=12)
 plt.tight_layout()
 plt.show()
-
 
 
 
