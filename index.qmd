@@ -130,24 +130,19 @@ But honestly, that is just the average outcome. In real life, with a 50% gain or
 
 Visualization:
 
-Colored Lines (Individual Player Simulation Paths):
-These lines represent the actual, random journey of five different players through ten coin flips.
-They start together at $30,000 at the beginning (Flip 0).
+Colored Lines – Individual Player Paths
+The colored lines illustrate the simulated paths taken by five different players as they move through ten rounds of coin flips. Everyone begins at the same starting point of $30,000, but from there their paths diverge based on random wins and losses. These lines highlight the natural volatility of the game: some players hit lucky streaks and their balances rise sharply, while others encounter downturns and see their balances fall.
 
-Each line shows how volatile the game is: some players get lucky streaks and their lines climb very high, while others experience losses and their lines drop low.
+Black Line – Expected Value Trend
+The solid black line represents the expected value, or the theoretical average outcome if the game were repeated an extremely large number of times. In this simulation, the expected value shows a steady upward trend, indicating that the game provides a small long-term advantage to the player (about a 5% average gain per flip).
 
-Black Line (Expected Value):
+X-Axis – Number of Flips
+The horizontal axis tracks the progression through the game, starting at 0 flips and ending at 10 flips. It helps the viewer see how each player's balance changes over time.
 
-This solid black line is the theoretical average of the game. It shows where the balance should be if the game were played an infinite number of times.
-In this specific game, the black line steadily increases over time, showing that the game is slightly favorable to the player on average (a 5% average gain per flip).
+Y-Axis – Account Balance ($)
+The vertical axis displays the players’ account balances in dollars. This scale makes it easy to compare how high or low each player’s balance goes as the simulation unfolds.
 
-X-axis ("Number of Flips"):
-
-This horizontal axis tracks the progression of the game, from the start (0 flips) to the end (10 flips).
-
-Y-axis ("Account Balance ($)"):
-
-This vertical axis measures the amount of money held by a player at any given point in the game.
+In summary - This visualization compares five simulated player outcomes with the theoretical expected value of a coin-flip game. While all players start with the same balance, their colored paths quickly diverge, showing how randomness creates big swings—some rising sharply with lucky streaks, others falling due to losses. The black line provides a steady benchmark, representing the average result we’d expect over many repetitions of the game. Together, the chart highlights both the volatility of individual experiences and the long-term upward trend implied by the game’s positive expected value.
 
 
 ```{python}
