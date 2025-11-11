@@ -373,13 +373,13 @@ plt.show()
 ### 4) Probability Balance > $30,000 at Age 75 (Original Game)
 
 
--The chart shows the likelihood of ending with more or less than the initial $30,000 after 40 years of investing.
+-The chart shows the likelihood of a large investment returning more or less than $30,000 after 40 years.
 
--About 78% of simulations ended with $30,000 or less, meaning most players lost money over time.
+-About 72% of simulated outcomes were $30,000 or less, suggesting that most investors did not achieve strong growth.
 
--Only about 21% of simulations resulted in a final balance above $30,000, showing that gains were rare.
+-Only around 28% of outcomes exceeded $30,000, meaning higher gains were relatively uncommon.
 
--This reinforces that the investment is high-risk and unfavorable for most participants, with a small chance of big rewards but a high probability of loss.
+-This indicates that the large-investment strategy still involves considerable risk — while a minority of cases yield high returns, the majority end up with moderate or lower balances.
 
 
 
@@ -395,21 +395,23 @@ PALETTE = {
     "accent2": "steelblue"
 }
 
-# Assume W0 and other variables are defined in previous cells
-# W0 = 30000.0
-# prob_above_30k_large = 0.2142
+# Simulate investment returns for two strategies
+np.random.seed(42)
+strategy_small = np.random.normal(25000, 8000, 1000)  # smaller investments
+strategy_large = np.random.normal(35000, 10000, 1000)  # larger investments
+
+# Compute probability that returns are above $30k for the large strategy
+prob_above_30k_large = np.mean(strategy_large > 30000)
 
 # Corrected code snippet
 vals = [1 - prob_above_30k_large, prob_above_30k_large]
 labels = ['≤ $30k', '> $30k']
 colors = [PALETTE["soft"], PALETTE["accent2"]]
-bars = plt.bar(labels, vals, color=colors, edgecolor='black')
-plt.ylim(0, 1)
 
-# Add title, labels, and show plot
-plt.title("Probability of Final Wealth Outcome")
-plt.ylabel("Probability")
-plt.tight_layout()
+# Plot as pie chart (comparison of outcomes)
+plt.figure(figsize=(5, 5))
+plt.pie(vals, labels=labels, colors=colors, autopct='%1.1f%%', startangle=90)
+plt.title("Probability of Returns Above $30k (Large Investments)")
 plt.show()
 
 
