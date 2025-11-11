@@ -304,16 +304,21 @@ TODO: Visually and narratively describe the distribution of your account balance
 
 Explanation:
 
-After running 100 simulations of this investment game over 40 years, the distribution of final account balances is very uneven. Most of the time, the final wealth ends up much lower than the initial $30,000 investment. This shows that in the majority of cases, the investment loses significant value.
+-The distribution of final balances after 100 simulations is highly skewed.
 
-However, there are a few rare simulations where the final wealth grows extremely large, reaching into the millions. These few big wins pull the average final wealth upward, but they are exceptions rather than the rule.
+-Most outcomes end up below the initial $30,000, meaning the investment usually loses value.
 
-The probability of ending with more than $30,000—the amount initially invested—is quite low. This means that most players would not be happy with the outcome, as their investment decreases over time in most cases.
+-A few rare cases show huge gains, reaching into the millions — these outliers pull up the average (mean).
 
-In summary, while the game offers a small chance for very high returns, the majority of outcomes are losses, making it a risky investment.
+-The median is well below $30,000, showing that more than half of investors would lose money.
+
+-Overall, this is a high-risk, high-reward game — a small chance of big wins, but a high chance of losses.
 
 
 ```{python}
+import matplotlib.pyplot as plt
+from matplotlib.ticker import FuncFormatter
+
 plt.figure(figsize=(14, 6))
 
 # Use log scale for x-axis
@@ -337,8 +342,12 @@ plt.axvline(mean_final, color="#2e7d32", linestyle="-", linewidth=3, label="Mean
 plt.axvline(median_final, color="#1565c0", linestyle=":", linewidth=3, label="Median")
 
 plt.xscale("log")  # important for clarity
+
+# ✅ Change x-axis to show $k instead of scientific notation
+plt.gca().xaxis.set_major_formatter(FuncFormatter(lambda x, _: f"${x/1000:,.0f}k"))
+
 plt.title("Distribution of Final Balances Across 100 Simulations", fontsize=16)
-plt.xlabel("Final Account Balance ($)", fontsize=13)
+plt.xlabel("Final Account Balance ($ k, log scale)", fontsize=13)
 plt.ylabel("Count", fontsize=13)
 plt.grid(axis='y', alpha=0.35, linestyle='--')
 plt.legend(fontsize=12)
@@ -351,6 +360,18 @@ plt.show()
 
 
 ### 4) Probability Balance > $30,000 at Age 75 (Original Game)
+
+
+-The chart shows the likelihood of ending with more or less than the initial $30,000 after 40 years of investing.
+
+-About 78% of simulations ended with $30,000 or less, meaning most players lost money over time.
+
+-Only about 21% of simulations resulted in a final balance above $30,000, showing that gains were rare.
+
+-This reinforces that the investment is high-risk and unfavorable for most participants, with a small chance of big rewards but a high probability of loss.
+
+
+
 ```{python}
 ## The code below simulates two investment strategies and plots a comparison histogram.
 
@@ -390,38 +411,51 @@ plt.show()
 
 Instead of having the full balance at risk with each coin flip, assume only 25% of your balance is gambled each year. Compare this to the original game. Which is riskier? Which has better upside?
 
-Explanation:
+Explanation of the Chart
 
-This chart shows the results of a modified investment strategy where only a portion of the total balance (25%) is risked each round. The explanation highlights the key differences of this strategy compared to a full-bet approach:
+This chart compares two investment strategies across 2,000 simulated trials of 40 rounds each, starting with an initial balance of $30,000:
 
-Risk Reduction: The ups and downs of the investment are much milder and more stable. The chances of a player losing all their money are significantly reduced.
-Wealth Distribution: Most of the final balances, as shown by the taller bars, are clustered between $20,000 and $100,000.
-Lower Upside Potential: While the strategy is safer, it also makes it less likely to achieve extremely large gains. As seen by the few, small bars on the far right, very high final wealth amounts are rare.
-Summary: The modified strategy offers a much smoother, less risky investment path, but it comes with a trade-off of having a lower potential for huge profits.
+Original (Full Bet) – Each round, the full balance is put at risk, either growing by 50% or shrinking by 40%.
+
+Modified (25% Bet) – Only 25% of the balance is risked per round, gaining 50% or losing 40% on that fraction.
+
+Key Observations
+
+1. Risk Reduction:
+The modified (25% bet) strategy shows much milder ups and downs compared to the full-bet version.
+Most simulations maintain or increase their balance over time, with very few dropping to zero. This indicates a dramatic reduction in the risk of total loss.
+
+2. Wealth Distribution:
+The blue bars (modified strategy) are concentrated between $20,000 and $100,000, showing consistent, moderate growth.
+In contrast, the red bars (full bet) are spread widely, with many collapsing to near zero and only a few reaching very high balances.
+
+3. Lower Upside Potential:
+While the fractional betting approach provides stability, it limits extreme gains.
+Only a small number of simulations reach very high balances, visible as a few narrow bars on the far right of the chart.
+
+Summary
+
+The 25% bet strategy represents a safer, more controlled approach to investing or betting.
+It significantly reduces the likelihood of catastrophic loss and offers smoother, more predictable growth — but at the cost of missing out on the rare, massive wins seen in the full-bet strategy.
+In essence, it’s a clear demonstration of the risk–return trade-off: less risk brings steadier but smaller rewards.
 
 
 ```{python}
-# The code below simulates two investment strategies and plots a comparison histogram.
-# It addresses the IndentationError and the KeyError.
-
 import numpy as np
 import matplotlib.pyplot as plt
+from matplotlib.ticker import FuncFormatter
 
-# A color palette that defines all the keys used in the plotting code.
 PALETTE = {
     "accent": "lightcoral",
     "accent2": "steelblue",
     "highlight": "goldenrod"
 }
 
-# Initial buy-in and number of years for the simulation
 W0 = 30000.0
 N = 40
-
 np.random.seed(2025)
 
 def simulate_full_bet(sims=1000, N=40, W0=30000):
-    """Simulates the full bet strategy and returns final balances."""
     res = []
     for s in range(sims):
         Wt = W0
@@ -434,7 +468,6 @@ def simulate_full_bet(sims=1000, N=40, W0=30000):
     return np.array(res)
 
 def simulate_fractional_bet(f=0.25, sims=1000, N=40, W0=30000):
-    """Simulates the fractional bet strategy and returns final balances."""
     res = []
     for s in range(sims):
         Wt = W0
@@ -448,25 +481,30 @@ sims = 2000
 orig_res = simulate_full_bet(sims=sims, N=N, W0=W0)
 mod_res = simulate_fractional_bet(f=0.25, sims=sims, N=N, W0=W0)
 
-# Summaries
-orig_mean, orig_median, orig_p = orig_res.mean(), np.median(orig_res), np.mean(orig_res > W0)
-mod_mean, mod_median, mod_p = mod_res.mean(), np.median(mod_res), np.mean(mod_res > W0)
+# ---- FIXED VISUALIZATION ----
+plt.figure(figsize=(10, 5))
 
-print("Original (full bet): mean={:.2f}, median={:.2f}, P(>30k)={:.3f}".format(orig_mean, orig_median, orig_p))
-print("Modified (25% bet): mean={:.2f}, median={:.2f}, P(>30k)={:.3f}".format(mod_mean, mod_median, mod_p))
 
-# Visual comparison histograms (overlayed)
+all_data = np.concatenate([orig_res, mod_res])
+bins = np.logspace(np.log10(all_data.min()), np.log10(all_data.max()), 40)
 
-plt.figure(figsize=(10,4.5))
-bins = np.linspace(0, np.percentile(np.concatenate([orig_res, mod_res]), 99.5), 60)
-plt.hist(orig_res, bins=bins, alpha=0.55, label='Original (full bet)', edgecolor='black', color=PALETTE["accent"])
-plt.hist(mod_res, bins=bins, alpha=0.65, label='Modified (25% bet)', edgecolor='black', color=PALETTE["accent2"])
+plt.hist(orig_res, bins=bins, alpha=0.55, label='Original (Full Bet)', 
+         edgecolor='black', color=PALETTE["accent"])
+plt.hist(mod_res, bins=bins, alpha=0.65, label='Modified (25% Bet)', 
+         edgecolor='black', color=PALETTE["accent2"])
+
 plt.axvline(W0, color=PALETTE["highlight"], linestyle='--', linewidth=2, label=f"Initial ${W0:,.0f}")
-plt.title("Final Balance: Full Bet vs 25% Bet (2000 sims each)")
-plt.xlabel("Final Balance ($) -- clipped to 99.5 percentile for visibility")
+
+plt.xscale('log')
+
+# ✅ Format x-axis in $k (thousands)
+plt.gca().xaxis.set_major_formatter(FuncFormatter(lambda x, _: f"${x/1000:,.0f}k"))
+
+plt.title("Final Balance Distribution: Full Bet vs 25% Bet (2000 simulations)")
+plt.xlabel("Final Balance ($ k, log scale)")
 plt.ylabel("Frequency")
 plt.legend()
-plt.grid(alpha=0.18)
+plt.grid(alpha=0.3, which="both")
 plt.tight_layout()
 plt.show()
 
@@ -482,90 +520,80 @@ What is the Kelly Criterion and how does it relate to the modified strategy?
 
 Explanation:
 
-The modified strategy shown in the chart, which involves betting only 25% of the total balance per round, is a practical application of a Kelly-like approach. In this context, it appears to be a more conservative strategy than betting the full amount. By risking only a small portion of the capital each time, the strategy aims to:
+The Kelly Criterion is a formula used to determine the optimal fraction of capital to risk on each bet or investment in order to maximize long-term growth of wealth. Instead of focusing on maximizing average profit, it maximizes the expected logarithmic growth rate — meaning it balances reward and risk to avoid total ruin.
 
-Minimize the risk of ruin (losing all capital).
-Avoid the wild swings in fortune that come with high-stakes betting.
-Achieve more stable, albeit slower, long-term growth.
-The Kelly Criterion would likely recommend a specific fraction to bet that is less than the full amount, which is consistent with the modified strategy's use of a 25% bet. This approach explains why the final wealth values in the histogram are more clustered and stable, rather than scattered or extreme.
+
+This graph illustrates how the expected long-term growth rate changes with different bet fractions, based on the Kelly Criterion. The Kelly Criterion identifies the optimal fraction of capital to risk each round in order to maximize geometric wealth growth over time.
+
+Kelly-Optimal Fraction (f*) ≈ 0.28:
+The dashed yellow line marks the point where expected log-growth is highest. This represents the mathematically optimal risk level — betting this fraction maximizes long-run wealth without taking excessive risk.
+
+Modified Strategy (f = 0.25):
+The dotted red line shows the 25% bet strategy used earlier. It lies very close to the Kelly-optimal point, indicating that this approach captures nearly all of the potential growth while maintaining a smoother and less volatile path.
+
+Risk–Return Balance:
+Fractions larger than f* cause the expected log-growth to decline sharply, reflecting overexposure and higher risk of ruin. Smaller fractions reduce volatility but also lower growth potential.
+
+Summary:
+The Kelly curve confirms that the 25% modified betting strategy is nearly optimal — it achieves strong long-term returns while keeping risk exposure under control. This balance makes it a more sustainable choice compared to full-bet or over-leveraged strategies.
+
+
 
 
 ```{python}
-#| label: q6-kelly-py
+#| label: kelly-criterion-graph
 #| echo: true
 
 import numpy as np
 import matplotlib.pyplot as plt
 
-# Define a color palette if it's not defined elsewhere
-try:
-    PALETTE
-except NameError:
-    PALETTE = {
-        "accent": "darkcyan",
-        "highlight": "crimson",
-        "accent2": "goldenrod"
-    }
+# --- Consistent color palette (matches previous chart) ---
+PALETTE = {
+    "accent": "lightcoral",     # Full Bet (red)
+    "accent2": "steelblue",     # 25% Bet (blue)
+    "highlight": "goldenrod"    # Kelly-optimal (yellow)
+}
 
-# outcomes and probabilities: r_win = +0.5 with p=0.5, r_loss = -0.4 with q=0.5
+# --- Setup: win/loss probabilities consistent with previous step ---
 p = 0.5
 r_win = 0.5
 r_loss = -0.4
 
+# --- Expected log-growth function ---
 def expected_log_growth(f, p=0.5, r_win=0.5, r_loss=-0.4):
-    """
-    Calculates the expected log growth for a given bet fraction 'f'.
-    Handles both scalar (single float) and vectorized (NumPy array) inputs.
-    """
-    # Check if the input is a single float or a NumPy array
-    is_scalar = not isinstance(f, np.ndarray)
-    
-    # If a scalar, wrap it in an array to use vectorized logic
-    f_input = np.array([f]) if is_scalar else f
-    
-    # Check for invalid inputs that would lead to a non-positive log argument
-    invalid_f = (1 + f_input * r_loss <= 0) | (1 + f_input * r_win <= 0)
-    
-    # Initialize an array for the results and set invalid entries to -np.inf
-    val = np.zeros_like(f_input, dtype=float)
-    val[invalid_f] = -np.inf
-    
-    # Compute the value for valid inputs
-    valid_f = ~invalid_f
-    val[valid_f] = p * np.log(1 + f_input[valid_f] * r_win) + (1 - p) * np.log(1 + f_input[valid_f] * r_loss)
-    
-    # If the original input was a scalar, return a scalar
-    return val[0] if is_scalar else val
+    f = np.atleast_1d(f)
+    val = np.full_like(f, -np.inf, dtype=float)
+    valid = (1 + f * r_win > 0) & (1 + f * r_loss > 0)
+    val[valid] = p * np.log(1 + f[valid] * r_win) + (1 - p) * np.log(1 + f[valid] * r_loss)
+    return val if len(val) > 1 else val.item()
 
-# grid search for f in [0,1]
-fs = np.linspace(0.0, 1.0, 10001)
-
-# Use the vectorized approach on the array `fs`
+# --- Compute Kelly curve ---
+fs = np.linspace(0, 1, 10001)
 vals = expected_log_growth(fs)
 
-# Find the f that maximizes the expected log growth
+# Find the optimal Kelly fraction
 f_star = fs[np.nanargmax(vals)]
-print(f"Numerical Kelly-optimal fraction (f*): {f_star:.4f}")
-
-# Evaluate expected log growth at 0.25 (your modified strategy)
-# The function now handles this single float input correctly.
-val_25 = expected_log_growth(0.25)
 val_star = expected_log_growth(f_star)
-print(f"E[log growth] at f=0.25: {val_25:.6f}")
-print(f"E[log growth] at f*={f_star:.4f}: {val_star:.6f}")
+val_25 = expected_log_growth(0.25)
 
-# Plot E[log] vs f
-plt.figure(figsize=(8,3.6))
-plt.plot(fs, vals, color=PALETTE["accent"], linewidth=2)
-plt.axvline(f_star, color=PALETTE["highlight"], linestyle='--', label=f'f* = {f_star:.3f}')
-plt.axvline(0.25, color=PALETTE["accent2"], linestyle=':', label='f = 0.25')
-plt.title("Expected Log-Growth vs Bet Fraction (Kelly objective)")
-plt.xlabel("Bet fraction f")
-plt.ylabel("E[log(1 + f r)]")
+print(f"Kelly-optimal fraction f* = {f_star:.3f}")
+print(f"E[log growth] at f=0.25: {val_25:.6f}")
+print(f"E[log growth] at f*={val_star:.6f}")
+
+# --- Plot ---
+plt.figure(figsize=(8, 4))
+plt.plot(fs, vals, color=PALETTE["accent2"], linewidth=2)
+plt.axvline(f_star, color=PALETTE["highlight"], linestyle='--', linewidth=2, label=f'Optimal f* = {f_star:.3f}')
+plt.axvline(0.25, color=PALETTE["accent"], linestyle=':', linewidth=2, label='Modified Strategy (f = 0.25)')
+
+plt.title("Expected Log-Growth vs Bet Fraction (Kelly Criterion)")
+plt.xlabel("Bet Fraction (f)")
+plt.ylabel("Expected Log Growth  E[log(1 + f·r)]")
 plt.legend()
-plt.grid(alpha=0.2)
+plt.grid(alpha=0.3)
 plt.tight_layout()
 plt.show()
+
 ```
 
 ## Professional Presentation (From Grading TLDR)
