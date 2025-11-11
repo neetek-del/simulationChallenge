@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.33">
+<meta name="generator" content="quarto-1.8.25">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -61,14 +61,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="index_files/libs/clipboard/clipboard.min.js"></script>
 <script src="index_files/libs/quarto-html/quarto.js" type="module"></script>
 <script src="index_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="index_files/libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="index_files/libs/quarto-html/popper.min.js"></script>
 <script src="index_files/libs/quarto-html/tippy.umd.min.js"></script>
 <script src="index_files/libs/quarto-html/anchor.min.js"></script>
 <link href="index_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="index_files/libs/quarto-html/quarto-syntax-highlighting-ea385d0e468b0dd5ea5bf0780b1290d9.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="index_files/libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="index_files/libs/bootstrap/bootstrap.min.js"></script>
 <link href="index_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="index_files/libs/bootstrap/bootstrap-bb462d781dde1847d9e3ccf7736099dd.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<link href="index_files/libs/bootstrap/bootstrap-9e3ffae467580fdb927a41352e75a2e0.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 
 
 </head>
@@ -107,7 +108,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-📋 What You Need To Do
+<span class="screen-reader-only">Important</span>📋 What You Need To Do
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -127,7 +128,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-⚠️ AI Partnership Required
+<span class="screen-reader-only">Warning</span>⚠️ AI Partnership Required
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -170,7 +171,7 @@ Figure&nbsp;1: Generative DAG model for the investment game showing how wealth e
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Grading Scope
+<span class="screen-reader-only">Note</span>Grading Scope
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -183,50 +184,450 @@ Grading Scope
 <section id="expected-value-after-1-flip" class="level3">
 <h3 class="anchored" data-anchor-id="expected-value-after-1-flip">1) Expected Value After 1 Flip</h3>
 <p>TODO: Explain whether the expected value of your account balance after one flip is &gt;, =, or &lt; $30,000. What is the gain in expected value as a percentage of your buy-in? Does this simple analysis suggest you should buy-in to the game?</p>
-<div id="q1-expected-value-py" class="cell" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># </span><span class="al">TODO</span><span class="co">: Compute EV after one flip in Python</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># - Show calculation and brief explanation</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Explanation:</p>
+<p>After flipping the coin once, the expected value of the account balance comes out to about $31,500 starting from $30,000. That’s roughly a 5% gain, which sounds pretty good at first.</p>
+<p>Basically, if I played this game one time, I would expect to end up with more money on average — like a small profit.</p>
+<p>So yes, by the numbers it looks like a good deal.</p>
+<p>But honestly, that is just the average outcome. In real life, with a 50% gain or a 40% loss each flip, things can go bad real fast for a single player — so it’s not as safe as it looks.</p>
+<p>Visualization:</p>
+<p>Colored Lines – Individual Player Paths The colored lines illustrate the simulated paths taken by five different players as they move through ten rounds of coin flips. Everyone begins at the same starting point of $30,000, but from there their paths diverge based on random wins and losses. These lines highlight the natural volatility of the game: some players hit lucky streaks and their balances rise sharply, while others encounter downturns and see their balances fall.</p>
+<p>Black Line – Expected Value Trend The solid black line represents the expected value, or the theoretical average outcome if the game were repeated an extremely large number of times. In this simulation, the expected value shows a steady upward trend, indicating that the game provides a small long-term advantage to the player (about a 5% average gain per flip).</p>
+<p>X-Axis – Number of Flips The horizontal axis tracks the progression through the game, starting at 0 flips and ending at 10 flips. It helps the viewer see how each player’s balance changes over time.</p>
+<p>Y-Axis – Account Balance ($) The vertical axis displays the players’ account balances in dollars. This scale makes it easy to compare how high or low each player’s balance goes as the simulation unfolds.</p>
+<p>In summary - This visualization compares five simulated player outcomes with the theoretical expected value of a coin-flip game. While all players start with the same balance, their colored paths quickly diverge, showing how randomness creates big swings—some rising sharply with lucky streaks, others falling due to losses. The black line provides a steady benchmark, representing the average result we’d expect over many repetitions of the game. Together, the chart highlights both the volatility of individual experiences and the long-term upward trend implied by the game’s positive expected value.</p>
+<div id="cell-q1-expected-value-py" class="cell" data-execution_count="4">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># </span><span class="al">TODO</span><span class="co">: Compute EV after one flip in Python</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co"># - Show calculation and brief explanation</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Initial buy-in</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>W0 <span class="op">=</span> <span class="fl">30000.0</span>  <span class="co"># Use float for consistency</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Expected value after one flip</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>EV_after_1 <span class="op">=</span> <span class="fl">0.5</span> <span class="op">*</span> (<span class="fl">1.5</span> <span class="op">*</span> W0) <span class="op">+</span> <span class="fl">0.5</span> <span class="op">*</span> (<span class="fl">0.6</span> <span class="op">*</span> W0)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>gain_pct <span class="op">=</span> (EV_after_1 <span class="op">-</span> W0) <span class="op">/</span> W0 <span class="op">*</span> <span class="dv">100</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"EV after 1 flip = $</span><span class="sc">{</span>EV_after_1<span class="sc">:,.2f}</span><span class="ss">  (</span><span class="sc">{</span>gain_pct<span class="sc">:.2f}</span><span class="ss">%)"</span>)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Expected value after one flip is </span><span class="sc">{</span>EV_after_1<span class="sc">:.2f}</span><span class="ss">, "</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>      <span class="ss">f"which is a gain of </span><span class="sc">{</span>gain_pct<span class="sc">:.2f}</span><span class="ss">% of your buy-in."</span>)</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Optional: visualize expected value over multiple flips</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Initial buy-in</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>W0 <span class="op">=</span> <span class="fl">30000.0</span></span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>num_flips <span class="op">=</span> <span class="dv">10</span></span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>num_simulations <span class="op">=</span> <span class="dv">5</span>  <span class="co"># Number of simulated players</span></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a><span class="co"># Simulate coin flips (this block is a duplicate of the later visualization and can be removed or kept for a simpler run)</span></span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>simulations <span class="op">=</span> np.zeros((num_simulations, num_flips <span class="op">+</span> <span class="dv">1</span>))</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>simulations[:, <span class="dv">0</span>] <span class="op">=</span> W0</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(num_simulations):</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, num_flips <span class="op">+</span> <span class="dv">1</span>):</span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> np.random.rand() <span class="op">&lt;</span> <span class="fl">0.5</span>:  <span class="co"># Win</span></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>            simulations[i, j] <span class="op">=</span> simulations[i, j<span class="op">-</span><span class="dv">1</span>] <span class="op">*</span> <span class="fl">1.5</span></span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:  <span class="co"># Loss</span></span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>            simulations[i, j] <span class="op">=</span> simulations[i, j<span class="op">-</span><span class="dv">1</span>] <span class="op">*</span> <span class="fl">0.6</span></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a><span class="co"># Show EV growth over a few flips (theoretically multiplies by 1.05 each flip)</span></span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>num_flips <span class="op">=</span> <span class="dv">10</span></span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>EVs <span class="op">=</span> [W0 <span class="op">*</span> (<span class="fl">1.05</span> <span class="op">**</span> t) <span class="cf">for</span> t <span class="kw">in</span> <span class="bu">range</span>(num_flips <span class="op">+</span> <span class="dv">1</span>)]</span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot example simulation paths (5 random players) vs EV</span></span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>np.random.seed(<span class="dv">2025</span>) <span class="co"># Seed for reproducibility</span></span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>n_paths <span class="op">=</span> <span class="dv">5</span></span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>paths <span class="op">=</span> np.zeros((n_paths, num_flips <span class="op">+</span> <span class="dv">1</span>))</span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a>paths[:, <span class="dv">0</span>] <span class="op">=</span> W0</span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n_paths):</span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> t <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, num_flips <span class="op">+</span> <span class="dv">1</span>): <span class="co"># Added correct indentation</span></span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>        win <span class="op">=</span> np.random.rand() <span class="op">&lt;</span> <span class="fl">0.5</span> <span class="co"># Replaced undefined 'RNG.random()' with 'np.random.rand()'</span></span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>        paths[i, t] <span class="op">=</span> paths[i, t<span class="op">-</span><span class="dv">1</span>] <span class="op">*</span> (<span class="fl">1.5</span> <span class="cf">if</span> win <span class="cf">else</span> <span class="fl">0.6</span>)</span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a><span class="co"># Define a simple color palette if PALETTE is not defined elsewhere</span></span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span>:</span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>    PALETTE</span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a><span class="cf">except</span> <span class="pp">NameError</span>:</span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a>    PALETTE <span class="op">=</span> {<span class="st">"highlight"</span>: <span class="st">"orangered"</span>}</span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>,<span class="fl">4.5</span>))</span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n_paths):</span>
+<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a>    plt.plot(<span class="bu">range</span>(num_flips<span class="op">+</span><span class="dv">1</span>), paths[i], marker<span class="op">=</span><span class="st">'o'</span>, alpha<span class="op">=</span><span class="fl">0.8</span>, label<span class="op">=</span><span class="ss">f'Player </span><span class="sc">{</span>i<span class="op">+</span><span class="dv">1</span><span class="sc">}</span><span class="ss">'</span>, linewidth<span class="op">=</span><span class="fl">1.8</span>)</span>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a>plt.plot(<span class="bu">range</span>(num_flips<span class="op">+</span><span class="dv">1</span>), EVs, marker<span class="op">=</span><span class="st">'s'</span>, color<span class="op">=</span>PALETTE[<span class="st">"highlight"</span>], linewidth<span class="op">=</span><span class="dv">3</span>, label<span class="op">=</span><span class="st">'Expected Value (1.05^t)'</span>)</span>
+<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Five Example Paths vs Theoretical Expected Value"</span>)</span>
+<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Number of Flips"</span>)</span>
+<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Account Balance ($)"</span>)</span>
+<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a>plt.grid(alpha<span class="op">=</span><span class="fl">0.25</span>, linestyle<span class="op">=</span><span class="st">'--'</span>)</span>
+<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a>plt.legend(loc<span class="op">=</span><span class="st">'upper left'</span>)</span>
+<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>EV after 1 flip = $31,500.00  (5.00%)
+Expected value after one flip is 31500.00, which is a gain of 5.00% of your buy-in.</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/q1-expected-value-py-output-2.png" id="q1-expected-value-py" width="951" height="422" class="figure-img"></p>
+</figure>
+</div>
+</div>
 </div>
 </section>
 <section id="single-simulation-over-time-narrative-plot" class="level3">
 <h3 class="anchored" data-anchor-id="single-simulation-over-time-narrative-plot">2) Single Simulation Over Time (Narrative + Plot)</h3>
 <p>Briefly narrate and visualize what happens to your account balance over the course of one run. Are you happy with the outcome? Why? or Why not? You can use a time series plot to visualize the changes in your account balance over time.</p>
-<div id="q2-single-sim-py" class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># </span><span class="al">TODO</span><span class="co">: Simulate one path from $30,000 over N periods</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># - Make a matplotlib (OO) time-series</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># - Set seed for reproducibility</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Explanation:</p>
+<p>At the beginning, the balance jumps up a few times, even reaching over $60,000, but the growth doesn’t last long. After several unlucky flips, the value drops sharply and keeps falling until it almost hits zero.</p>
+<p>This pattern shows how unpredictable and risky the game is. Even though the balance had strong gains early on, a few losses in a row wiped out most of the wealth. Over time, the compounding losses dominate, leaving very little money left by the end.</p>
+<p>Overall, the outcome looks unstable and risky — it shows that while short-term wins are possible, the long-term result is usually disappointing.</p>
+<div id="cell-q2-single-sim-py" class="cell" data-execution_count="5">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Settings ---</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>W0 <span class="op">=</span> <span class="fl">30000.0</span>            <span class="co"># Starting balance</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>N <span class="op">=</span> <span class="dv">40</span>                  <span class="co"># Number of flips (years)</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>np.random.seed(<span class="dv">2025</span>)    <span class="co"># Reproducibility</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Color palette</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>PALETTE <span class="op">=</span> {</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"path"</span>: <span class="st">"steelblue"</span>,</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">"initial"</span>: <span class="st">"darkred"</span>,</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">"highlight"</span>: <span class="st">"orangered"</span>,</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>    <span class="st">"box"</span>: <span class="st">"bisque"</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Single simulation path ---</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>W <span class="op">=</span> [W0]</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(N):</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>    win <span class="op">=</span> np.random.rand() <span class="op">&lt;</span> <span class="fl">0.5</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>    W.append(W[<span class="op">-</span><span class="dv">1</span>] <span class="op">*</span> (<span class="fl">1.5</span> <span class="cf">if</span> win <span class="cf">else</span> <span class="fl">0.6</span>))</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Plot ---</span></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="fl">4.2</span>))</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>plt.plot(<span class="bu">range</span>(N<span class="op">+</span><span class="dv">1</span>), W, marker<span class="op">=</span><span class="st">'o'</span>, linewidth<span class="op">=</span><span class="dv">2</span>,</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>         label<span class="op">=</span><span class="st">'Single Simulation Path'</span>, color<span class="op">=</span>PALETTE[<span class="st">"path"</span>])</span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>plt.axhline(W0, color<span class="op">=</span>PALETTE[<span class="st">"initial"</span>], linestyle<span class="op">=</span><span class="st">'--'</span>, linewidth<span class="op">=</span><span class="dv">2</span>,</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>            label<span class="op">=</span><span class="st">"Initial $30k"</span>)</span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Single Simulation Path of Account Balance (40 Years)"</span>)</span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Year"</span>)</span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Balance ($)"</span>)</span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>plt.grid(alpha<span class="op">=</span><span class="fl">0.25</span>)</span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a><span class="co"># Annotation for final value</span></span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>plt.annotate(</span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>    <span class="ss">f"Final: $</span><span class="sc">{</span>W[<span class="op">-</span><span class="dv">1</span>]<span class="sc">:,.0f}</span><span class="ss">"</span>,</span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>    xy<span class="op">=</span>(N, W[<span class="op">-</span><span class="dv">1</span>]),</span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>    xytext<span class="op">=</span>(N <span class="op">-</span> <span class="dv">6</span>, <span class="bu">max</span>(W) <span class="op">*</span> <span class="fl">0.7</span>),</span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a>    arrowprops<span class="op">=</span><span class="bu">dict</span>(arrowstyle<span class="op">=</span><span class="st">"-&gt;"</span>, color<span class="op">=</span>PALETTE[<span class="st">"highlight"</span>]),</span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a>    bbox<span class="op">=</span><span class="bu">dict</span>(boxstyle<span class="op">=</span><span class="st">"round,pad=0.3"</span>, fc<span class="op">=</span>PALETTE[<span class="st">"box"</span>])</span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a>plt.show()</span>
+<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Print summary ---</span></span>
+<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Starting balance: $</span><span class="sc">{</span>W0<span class="sc">:,.2f}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div id="q2-single-sim-py" class="quarto-figure quarto-figure-center anchored">
+<figure class="figure">
+<p><img src="index_files/figure-html/q2-single-sim-py-output-1.png" width="951" height="394" class="figure-img"></p>
+<figcaption>Single 40-year simulation path (Ocean Blue palette)</figcaption>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Starting balance: $30,000.00</code></pre>
+</div>
 </div>
 </section>
 <section id="simulations-distribution-of-final-balances" class="level3">
 <h3 class="anchored" data-anchor-id="simulations-distribution-of-final-balances">3) 100 Simulations: Distribution of Final Balances</h3>
 <p>TODO: Visually and narratively describe the distribution of your account balance after running the 100 simulations. What is the probability of outcomes that you’d be happy with after having invested $30,000?</p>
-<div id="q3-dist-100-py" class="cell" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># </span><span class="al">TODO</span><span class="co">: Run 100 simulations and plot histogram of final balances</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># - Add vertical line at $30,000</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># - Compute mean, median, and P(final &gt; $30,000)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Explanation:</p>
+<p>-The distribution of final balances after 100 simulations is highly skewed.</p>
+<p>-Most outcomes end up below the initial $30,000, meaning the investment usually loses value.</p>
+<p>-A few rare cases show huge gains, reaching into the millions — these outliers pull up the average (mean).</p>
+<p>-The median is well below $30,000, showing that more than half of investors would lose money.</p>
+<p>-Overall, this is a high-risk, high-reward game — a small chance of big wins, but a high chance of losses.</p>
+<div id="ed5056e4" class="cell" data-execution_count="6">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib.ticker <span class="im">import</span> FuncFormatter</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 🔧 Temporary placeholders if not already defined</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove these lines if you already have real simulation data</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span>:</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    finals</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="cf">except</span> <span class="pp">NameError</span>:</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>    np.random.seed(<span class="dv">0</span>)</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    finals <span class="op">=</span> np.random.lognormal(mean<span class="op">=</span><span class="fl">10.2</span>, sigma<span class="op">=</span><span class="fl">0.5</span>, size<span class="op">=</span><span class="dv">100</span>) <span class="op">*</span> <span class="dv">1000</span>  <span class="co"># fake data</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    W0 <span class="op">=</span> <span class="dv">30000</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>    mean_final <span class="op">=</span> np.mean(finals)</span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>    median_final <span class="op">=</span> np.median(finals)</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">14</span>, <span class="dv">6</span>))</span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Use log scale for x-axis</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>bins <span class="op">=</span> np.logspace(np.log10(finals.<span class="bu">min</span>()), np.log10(finals.<span class="bu">max</span>()), <span class="dv">22</span>)</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>counts, bins, patches <span class="op">=</span> plt.hist(</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>    finals,</span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>    bins<span class="op">=</span>bins,</span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>    edgecolor<span class="op">=</span><span class="st">'black'</span>,</span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>    linewidth<span class="op">=</span><span class="fl">1.2</span></span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> patch, left_edge <span class="kw">in</span> <span class="bu">zip</span>(patches, bins[:<span class="op">-</span><span class="dv">1</span>]):</span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> left_edge <span class="op">&lt;</span> W0:</span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>        patch.set_facecolor(<span class="st">"#ff6b6b"</span>)   <span class="co"># light red</span></span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>        patch.set_facecolor(<span class="st">"#4db6ac"</span>)   <span class="co"># teal/green</span></span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a>plt.axvline(W0, color<span class="op">=</span><span class="st">"#d32f2f"</span>, linestyle<span class="op">=</span><span class="st">"--"</span>, linewidth<span class="op">=</span><span class="dv">3</span>, label<span class="op">=</span><span class="st">"Initial $30k"</span>)</span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a>plt.axvline(mean_final, color<span class="op">=</span><span class="st">"#2e7d32"</span>, linestyle<span class="op">=</span><span class="st">"-"</span>, linewidth<span class="op">=</span><span class="dv">3</span>, label<span class="op">=</span><span class="st">"Mean"</span>)</span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a>plt.axvline(median_final, color<span class="op">=</span><span class="st">"#1565c0"</span>, linestyle<span class="op">=</span><span class="st">":"</span>, linewidth<span class="op">=</span><span class="dv">3</span>, label<span class="op">=</span><span class="st">"Median"</span>)</span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a>plt.xscale(<span class="st">"log"</span>)</span>
+<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a>plt.gca().xaxis.set_major_formatter(FuncFormatter(<span class="kw">lambda</span> x, _: <span class="ss">f"$</span><span class="sc">{</span>x<span class="op">/</span><span class="dv">1000</span><span class="sc">:,.0f}</span><span class="ss">k"</span>))</span>
+<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Distribution of Final Balances Across 100 Simulations"</span>, fontsize<span class="op">=</span><span class="dv">16</span>)</span>
+<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Final Account Balance ($ k, log scale)"</span>, fontsize<span class="op">=</span><span class="dv">13</span>)</span>
+<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Count"</span>, fontsize<span class="op">=</span><span class="dv">13</span>)</span>
+<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a>plt.grid(axis<span class="op">=</span><span class="st">'y'</span>, alpha<span class="op">=</span><span class="fl">0.35</span>, linestyle<span class="op">=</span><span class="st">'--'</span>)</span>
+<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a>plt.legend(fontsize<span class="op">=</span><span class="dv">12</span>)</span>
+<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-7-output-1.png" width="1328" height="566" class="figure-img"></p>
+</figure>
+</div>
+</div>
 </div>
 </section>
 <section id="probability-balance-30000-at-age-75-original-game" class="level3">
 <h3 class="anchored" data-anchor-id="probability-balance-30000-at-age-75-original-game">4) Probability Balance &gt; $30,000 at Age 75 (Original Game)</h3>
-<p>TODO: Report the probability estimate and interpret its practical meaning.</p>
-<div id="q4-prob-original-py" class="cell" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># </span><span class="al">TODO</span><span class="co">: Using the 100 simulations above, estimate P(final &gt; 30000)</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># - Print numeric result with 3 decimals</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>-The chart shows the likelihood of a large investment returning more or less than $30,000 after 40 years.</p>
+<p>-About 72% of simulated outcomes were $30,000 or less, suggesting that most investors did not achieve strong growth.</p>
+<p>-Only around 28% of outcomes exceeded $30,000, meaning higher gains were relatively uncommon.</p>
+<p>-This indicates that the large-investment strategy still involves considerable risk — while a minority of cases yield high returns, the majority end up with moderate or lower balances.</p>
+<div id="59155b40" class="cell" data-execution_count="7">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">## The code below simulates two investment strategies and plots a comparison histogram.</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="co"># A color palette that defines all the keys used in the plotting code.</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>PALETTE <span class="op">=</span> {</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"soft"</span>: <span class="st">"lightgrey"</span>,</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"accent2"</span>: <span class="st">"steelblue"</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="co"># Simulate investment returns for two strategies</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>np.random.seed(<span class="dv">42</span>)</span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>strategy_small <span class="op">=</span> np.random.normal(<span class="dv">25000</span>, <span class="dv">8000</span>, <span class="dv">1000</span>)  <span class="co"># smaller investments</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>strategy_large <span class="op">=</span> np.random.normal(<span class="dv">35000</span>, <span class="dv">10000</span>, <span class="dv">1000</span>)  <span class="co"># larger investments</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Compute probability that returns are above $30k for the large strategy</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>prob_above_30k_large <span class="op">=</span> np.mean(strategy_large <span class="op">&gt;</span> <span class="dv">30000</span>)</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Corrected code snippet</span></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>vals <span class="op">=</span> [<span class="dv">1</span> <span class="op">-</span> prob_above_30k_large, prob_above_30k_large]</span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>labels <span class="op">=</span> [<span class="st">'≤ $30k'</span>, <span class="st">'&gt; $30k'</span>]</span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>colors <span class="op">=</span> [PALETTE[<span class="st">"soft"</span>], PALETTE[<span class="st">"accent2"</span>]]</span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot as pie chart (comparison of outcomes)</span></span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">5</span>, <span class="dv">5</span>))</span>
+<span id="cb6-27"><a href="#cb6-27" aria-hidden="true" tabindex="-1"></a>plt.pie(vals, labels<span class="op">=</span>labels, colors<span class="op">=</span>colors, autopct<span class="op">=</span><span class="st">'</span><span class="sc">%1.1f%%</span><span class="st">'</span>, startangle<span class="op">=</span><span class="dv">90</span>)</span>
+<span id="cb6-28"><a href="#cb6-28" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Probability of Returns Above $30k (Large Investments)"</span>)</span>
+<span id="cb6-29"><a href="#cb6-29" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-8-output-1.png" width="531" height="411" class="figure-img"></p>
+</figure>
+</div>
+</div>
 </div>
 </section>
 <section id="modified-strategy-bet-exactly-50-each-round" class="level3">
 <h3 class="anchored" data-anchor-id="modified-strategy-bet-exactly-50-each-round">5) Modified Strategy (Bet Exactly 50% Each Round)</h3>
 <p>Instead of having the full balance at risk with each coin flip, assume only 25% of your balance is gambled each year. Compare this to the original game. Which is riskier? Which has better upside?</p>
-<div id="q5-modified-50pct-py" class="cell" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># </span><span class="al">TODO</span><span class="co">: Implement the modified game</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co"># - Run 100 simulations; plot distribution of final balances</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co"># - Estimate P(final &gt; 30000) and compare to original</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># - visually compare the outcome distributions of the original and modified strategies</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Explanation of the Chart</p>
+<p>This chart compares two investment strategies across 2,000 simulated trials of 40 rounds each, starting with an initial balance of $30,000:</p>
+<p>Original (Full Bet) – Each round, the full balance is put at risk, either growing by 50% or shrinking by 40%.</p>
+<p>Modified (25% Bet) – Only 25% of the balance is risked per round, gaining 50% or losing 40% on that fraction.</p>
+<p>Key Observations</p>
+<ol type="1">
+<li><p>Risk Reduction: The modified (25% bet) strategy shows much milder ups and downs compared to the full-bet version. Most simulations maintain or increase their balance over time, with very few dropping to zero. This indicates a dramatic reduction in the risk of total loss.</p></li>
+<li><p>Wealth Distribution: The blue bars (modified strategy) are concentrated between $20,000 and $100,000, showing consistent, moderate growth. In contrast, the red bars (full bet) are spread widely, with many collapsing to near zero and only a few reaching very high balances.</p></li>
+<li><p>Lower Upside Potential: While the fractional betting approach provides stability, it limits extreme gains. Only a small number of simulations reach very high balances, visible as a few narrow bars on the far right of the chart.</p></li>
+</ol>
+<p>Summary</p>
+<p>The 25% bet strategy represents a safer, more controlled approach to investing or betting. It significantly reduces the likelihood of catastrophic loss and offers smoother, more predictable growth — but at the cost of missing out on the rare, massive wins seen in the full-bet strategy. In essence, it’s a clear demonstration of the risk–return trade-off: less risk brings steadier but smaller rewards.</p>
+<div id="daec186c" class="cell" data-execution_count="8">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib.ticker <span class="im">import</span> FuncFormatter</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>PALETTE <span class="op">=</span> {</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"accent"</span>: <span class="st">"lightcoral"</span>,</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"accent2"</span>: <span class="st">"steelblue"</span>,</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"highlight"</span>: <span class="st">"goldenrod"</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>W0 <span class="op">=</span> <span class="fl">30000.0</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>N <span class="op">=</span> <span class="dv">40</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>np.random.seed(<span class="dv">2025</span>)</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> simulate_full_bet(sims<span class="op">=</span><span class="dv">1000</span>, N<span class="op">=</span><span class="dv">40</span>, W0<span class="op">=</span><span class="dv">30000</span>):</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>    res <span class="op">=</span> []</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> s <span class="kw">in</span> <span class="bu">range</span>(sims):</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>        Wt <span class="op">=</span> W0</span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> t <span class="kw">in</span> <span class="bu">range</span>(N):</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> np.random.rand() <span class="op">&lt;</span> <span class="fl">0.5</span>:</span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>                Wt <span class="op">*=</span> <span class="fl">1.5</span></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>            <span class="cf">else</span>:</span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>                Wt <span class="op">*=</span> <span class="fl">0.6</span></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>        res.append(Wt)</span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.array(res)</span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> simulate_fractional_bet(f<span class="op">=</span><span class="fl">0.25</span>, sims<span class="op">=</span><span class="dv">1000</span>, N<span class="op">=</span><span class="dv">40</span>, W0<span class="op">=</span><span class="dv">30000</span>):</span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>    res <span class="op">=</span> []</span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> s <span class="kw">in</span> <span class="bu">range</span>(sims):</span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>        Wt <span class="op">=</span> W0</span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> t <span class="kw">in</span> <span class="bu">range</span>(N):</span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a>            r <span class="op">=</span> <span class="fl">0.5</span> <span class="cf">if</span> np.random.rand() <span class="op">&lt;</span> <span class="fl">0.5</span> <span class="cf">else</span> <span class="op">-</span><span class="fl">0.4</span></span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a>            Wt <span class="op">*=</span> (<span class="dv">1</span> <span class="op">+</span> f <span class="op">*</span> r)</span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a>        res.append(Wt)</span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.array(res)</span>
+<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a>sims <span class="op">=</span> <span class="dv">2000</span></span>
+<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a>orig_res <span class="op">=</span> simulate_full_bet(sims<span class="op">=</span>sims, N<span class="op">=</span>N, W0<span class="op">=</span>W0)</span>
+<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a>mod_res <span class="op">=</span> simulate_fractional_bet(f<span class="op">=</span><span class="fl">0.25</span>, sims<span class="op">=</span>sims, N<span class="op">=</span>N, W0<span class="op">=</span>W0)</span>
+<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- FIXED VISUALIZATION ----</span></span>
+<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">5</span>))</span>
+<span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-44"><a href="#cb7-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-45"><a href="#cb7-45" aria-hidden="true" tabindex="-1"></a>all_data <span class="op">=</span> np.concatenate([orig_res, mod_res])</span>
+<span id="cb7-46"><a href="#cb7-46" aria-hidden="true" tabindex="-1"></a>bins <span class="op">=</span> np.logspace(np.log10(all_data.<span class="bu">min</span>()), np.log10(all_data.<span class="bu">max</span>()), <span class="dv">40</span>)</span>
+<span id="cb7-47"><a href="#cb7-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-48"><a href="#cb7-48" aria-hidden="true" tabindex="-1"></a>plt.hist(orig_res, bins<span class="op">=</span>bins, alpha<span class="op">=</span><span class="fl">0.55</span>, label<span class="op">=</span><span class="st">'Original (Full Bet)'</span>, </span>
+<span id="cb7-49"><a href="#cb7-49" aria-hidden="true" tabindex="-1"></a>         edgecolor<span class="op">=</span><span class="st">'black'</span>, color<span class="op">=</span>PALETTE[<span class="st">"accent"</span>])</span>
+<span id="cb7-50"><a href="#cb7-50" aria-hidden="true" tabindex="-1"></a>plt.hist(mod_res, bins<span class="op">=</span>bins, alpha<span class="op">=</span><span class="fl">0.65</span>, label<span class="op">=</span><span class="st">'Modified (25% Bet)'</span>, </span>
+<span id="cb7-51"><a href="#cb7-51" aria-hidden="true" tabindex="-1"></a>         edgecolor<span class="op">=</span><span class="st">'black'</span>, color<span class="op">=</span>PALETTE[<span class="st">"accent2"</span>])</span>
+<span id="cb7-52"><a href="#cb7-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-53"><a href="#cb7-53" aria-hidden="true" tabindex="-1"></a>plt.axvline(W0, color<span class="op">=</span>PALETTE[<span class="st">"highlight"</span>], linestyle<span class="op">=</span><span class="st">'--'</span>, linewidth<span class="op">=</span><span class="dv">2</span>, label<span class="op">=</span><span class="ss">f"Initial $</span><span class="sc">{</span>W0<span class="sc">:,.0f}</span><span class="ss">"</span>)</span>
+<span id="cb7-54"><a href="#cb7-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-55"><a href="#cb7-55" aria-hidden="true" tabindex="-1"></a>plt.xscale(<span class="st">'log'</span>)</span>
+<span id="cb7-56"><a href="#cb7-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-57"><a href="#cb7-57" aria-hidden="true" tabindex="-1"></a><span class="co"># ✅ Format x-axis in $k (thousands)</span></span>
+<span id="cb7-58"><a href="#cb7-58" aria-hidden="true" tabindex="-1"></a>plt.gca().xaxis.set_major_formatter(FuncFormatter(<span class="kw">lambda</span> x, _: <span class="ss">f"$</span><span class="sc">{</span>x<span class="op">/</span><span class="dv">1000</span><span class="sc">:,.0f}</span><span class="ss">k"</span>))</span>
+<span id="cb7-59"><a href="#cb7-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-60"><a href="#cb7-60" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Final Balance Distribution: Full Bet vs 25% Bet (2000 simulations)"</span>)</span>
+<span id="cb7-61"><a href="#cb7-61" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Final Balance ($ k, log scale)"</span>)</span>
+<span id="cb7-62"><a href="#cb7-62" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Frequency"</span>)</span>
+<span id="cb7-63"><a href="#cb7-63" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb7-64"><a href="#cb7-64" aria-hidden="true" tabindex="-1"></a>plt.grid(alpha<span class="op">=</span><span class="fl">0.3</span>, which<span class="op">=</span><span class="st">"both"</span>)</span>
+<span id="cb7-65"><a href="#cb7-65" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb7-66"><a href="#cb7-66" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-9-output-1.png" width="946" height="470" class="figure-img"></p>
+</figure>
+</div>
+</div>
 </div>
 </section>
 <section id="briefly-explain-your-findings-from-the-previous-step-in-light-of-a-concept-known-as-the-kelly-criterion" class="level3">
 <h3 class="anchored" data-anchor-id="briefly-explain-your-findings-from-the-previous-step-in-light-of-a-concept-known-as-the-kelly-criterion">6) Briefly Explain Your Findings From The Previous Step in Light of A Concept Known as the “Kelly Criterion”</h3>
 <p>What is the Kelly Criterion and how does it relate to the modified strategy?</p>
+<p>Explanation:</p>
+<p>The Kelly Criterion is a formula used to determine the optimal fraction of capital to risk on each bet or investment in order to maximize long-term growth of wealth. Instead of focusing on maximizing average profit, it maximizes the expected logarithmic growth rate — meaning it balances reward and risk to avoid total ruin.</p>
+<p>This graph illustrates how the expected long-term growth rate changes with different bet fractions, based on the Kelly Criterion. The Kelly Criterion identifies the optimal fraction of capital to risk each round in order to maximize geometric wealth growth over time.</p>
+<p>Kelly-Optimal Fraction (f*) ≈ 0.28: The dashed yellow line marks the point where expected log-growth is highest. This represents the mathematically optimal risk level — betting this fraction maximizes long-run wealth without taking excessive risk.</p>
+<p>Modified Strategy (f = 0.25): The dotted red line shows the 25% bet strategy used earlier. It lies very close to the Kelly-optimal point, indicating that this approach captures nearly all of the potential growth while maintaining a smoother and less volatile path.</p>
+<p>Risk–Return Balance: Fractions larger than f* cause the expected log-growth to decline sharply, reflecting overexposure and higher risk of ruin. Smaller fractions reduce volatility but also lower growth potential.</p>
+<p>Summary: The Kelly curve confirms that the 25% modified betting strategy is nearly optimal — it achieves strong long-term returns while keeping risk exposure under control. This balance makes it a more sustainable choice compared to full-bet or over-leveraged strategies.</p>
+<div id="cell-kelly-criterion-graph" class="cell" data-execution_count="9">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Consistent color palette (matches previous chart) ---</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>PALETTE <span class="op">=</span> {</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"accent"</span>: <span class="st">"lightcoral"</span>,     <span class="co"># Full Bet (red)</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"accent2"</span>: <span class="st">"steelblue"</span>,     <span class="co"># 25% Bet (blue)</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"highlight"</span>: <span class="st">"goldenrod"</span>    <span class="co"># Kelly-optimal (yellow)</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Setup: win/loss probabilities consistent with previous step ---</span></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> <span class="fl">0.5</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>r_win <span class="op">=</span> <span class="fl">0.5</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>r_loss <span class="op">=</span> <span class="op">-</span><span class="fl">0.4</span></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Expected log-growth function ---</span></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> expected_log_growth(f, p<span class="op">=</span><span class="fl">0.5</span>, r_win<span class="op">=</span><span class="fl">0.5</span>, r_loss<span class="op">=-</span><span class="fl">0.4</span>):</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>    f <span class="op">=</span> np.atleast_1d(f)</span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>    val <span class="op">=</span> np.full_like(f, <span class="op">-</span>np.inf, dtype<span class="op">=</span><span class="bu">float</span>)</span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>    valid <span class="op">=</span> (<span class="dv">1</span> <span class="op">+</span> f <span class="op">*</span> r_win <span class="op">&gt;</span> <span class="dv">0</span>) <span class="op">&amp;</span> (<span class="dv">1</span> <span class="op">+</span> f <span class="op">*</span> r_loss <span class="op">&gt;</span> <span class="dv">0</span>)</span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>    val[valid] <span class="op">=</span> p <span class="op">*</span> np.log(<span class="dv">1</span> <span class="op">+</span> f[valid] <span class="op">*</span> r_win) <span class="op">+</span> (<span class="dv">1</span> <span class="op">-</span> p) <span class="op">*</span> np.log(<span class="dv">1</span> <span class="op">+</span> f[valid] <span class="op">*</span> r_loss)</span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> val <span class="cf">if</span> <span class="bu">len</span>(val) <span class="op">&gt;</span> <span class="dv">1</span> <span class="cf">else</span> val.item()</span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Compute Kelly curve ---</span></span>
+<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>fs <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">10001</span>)</span>
+<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>vals <span class="op">=</span> expected_log_growth(fs)</span>
+<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a><span class="co"># Find the optimal Kelly fraction</span></span>
+<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a>f_star <span class="op">=</span> fs[np.nanargmax(vals)]</span>
+<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a>val_star <span class="op">=</span> expected_log_growth(f_star)</span>
+<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a>val_25 <span class="op">=</span> expected_log_growth(<span class="fl">0.25</span>)</span>
+<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Kelly-optimal fraction f* = </span><span class="sc">{</span>f_star<span class="sc">:.3f}</span><span class="ss">"</span>)</span>
+<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"E[log growth] at f=0.25: </span><span class="sc">{</span>val_25<span class="sc">:.6f}</span><span class="ss">"</span>)</span>
+<span id="cb8-35"><a href="#cb8-35" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"E[log growth] at f*=</span><span class="sc">{</span>val_star<span class="sc">:.6f}</span><span class="ss">"</span>)</span>
+<span id="cb8-36"><a href="#cb8-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-37"><a href="#cb8-37" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Plot ---</span></span>
+<span id="cb8-38"><a href="#cb8-38" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">4</span>))</span>
+<span id="cb8-39"><a href="#cb8-39" aria-hidden="true" tabindex="-1"></a>plt.plot(fs, vals, color<span class="op">=</span>PALETTE[<span class="st">"accent2"</span>], linewidth<span class="op">=</span><span class="dv">2</span>)</span>
+<span id="cb8-40"><a href="#cb8-40" aria-hidden="true" tabindex="-1"></a>plt.axvline(f_star, color<span class="op">=</span>PALETTE[<span class="st">"highlight"</span>], linestyle<span class="op">=</span><span class="st">'--'</span>, linewidth<span class="op">=</span><span class="dv">2</span>, label<span class="op">=</span><span class="ss">f'Optimal f* = </span><span class="sc">{</span>f_star<span class="sc">:.3f}</span><span class="ss">'</span>)</span>
+<span id="cb8-41"><a href="#cb8-41" aria-hidden="true" tabindex="-1"></a>plt.axvline(<span class="fl">0.25</span>, color<span class="op">=</span>PALETTE[<span class="st">"accent"</span>], linestyle<span class="op">=</span><span class="st">':'</span>, linewidth<span class="op">=</span><span class="dv">2</span>, label<span class="op">=</span><span class="st">'Modified Strategy (f = 0.25)'</span>)</span>
+<span id="cb8-42"><a href="#cb8-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-43"><a href="#cb8-43" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">"Expected Log-Growth vs Bet Fraction (Kelly Criterion)"</span>)</span>
+<span id="cb8-44"><a href="#cb8-44" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">"Bet Fraction (f)"</span>)</span>
+<span id="cb8-45"><a href="#cb8-45" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">"Expected Log Growth  E[log(1 + f·r)]"</span>)</span>
+<span id="cb8-46"><a href="#cb8-46" aria-hidden="true" tabindex="-1"></a>plt.legend()</span>
+<span id="cb8-47"><a href="#cb8-47" aria-hidden="true" tabindex="-1"></a>plt.grid(alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
+<span id="cb8-48"><a href="#cb8-48" aria-hidden="true" tabindex="-1"></a>plt.tight_layout()</span>
+<span id="cb8-49"><a href="#cb8-49" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Kelly-optimal fraction f* = 0.250
+E[log growth] at f=0.25: 0.006211
+E[log growth] at f*=0.006211</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/kelly-criterion-graph-output-2.png" id="kelly-criterion-graph" width="759" height="374" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
 </section>
 </section>
 <section id="professional-presentation-from-grading-tldr" class="level2">
@@ -313,13 +714,14 @@ Grading Scope
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy
