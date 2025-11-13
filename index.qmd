@@ -251,7 +251,7 @@ for _ in range(N):
     W.append(W[-1] * (1.5 if win else 0.6))
 
 # --- Plot ---
-fig, ax = plt.subplots(figsize=(5.5, 3))  # compact size for GitHub/Quarto
+fig, ax = plt.subplots(figsize=(6, 3.3))  # compact size for GitHub/Quarto
 
 ax.plot(range(N + 1), W, marker='o', linewidth=1.8,
         label='Single Simulation Path', color=PALETTE["path"])
@@ -296,74 +296,84 @@ TODO: Visually and narratively describe the distribution of your account balance
 
 Explanation:
 
--The distribution of final balances after 100 simulations is highly skewed.
+Right-skewed distribution: The data is clustered on the left side (lower balances), and the tail extends to the right (higher balances), which is the definition of a right-skewed or positively skewed distribution. This confirms that while most outcomes are modest, a few rare events yield very high returns.
 
--Most outcomes end up below the initial $30,000, meaning the investment usually loses value.
+Outcomes near initial investment: The highest bars are near the $0 to $1,000,000 range, with two bars near the far left (around the initial $30,000 line), indicating that a large number of simulations resulted in lower final balances.
 
--A few rare cases show huge gains, reaching into the millions — these outliers pull up the average (mean).
+Mean vs. Median: In a right-skewed distribution, the mean is typically greater than the median because it is pulled towards the higher outlier values. The provided image shows the mean ($785,887) is indeed greater than the median ($496,819), which is consistent with the visual skew.
 
--The median is well below $30,000, showing that more than half of investors would lose money.
+"Typical" outcome: The median is a better measure of the "typical" or central outcome in a skewed distribution because it is less affected by extreme outliers than the mean. The statement that more than half of the simulations result in modest or negative returns is consistent with the median being lower than the mean.
 
--Overall, this is a high-risk, high-reward game — a small chance of big wins, but a high chance of losses.
+Risk/Reward profile: The high concentration of outcomes near the low end (substantial chance of smaller gains or losses) combined with the long tail of high-value outliers (potential for large gains) perfectly describes a high-risk, high-reward scenario. 
 
 
 ```{python}
-#| label: q3-final-distribution-py
-#| fig-cap: "Distribution of Final Balances Across 100 Simulations"
+#| label: q3-final-distribution-linear
+#| fig-cap: "Distribution of Final Balances Across 100 Simulations (Linear Scale)"
 #| echo: true
 
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.ticker import FuncFormatter
 
-# --- Placeholder data (only used if 'finals' not defined earlier) ---
-try:
-    finals
-except NameError:
-    np.random.seed(0)
-    finals = np.random.lognormal(mean=10.2, sigma=0.5, size=100) * 1000  # synthetic data
-    W0 = 30000
-    mean_final = np.mean(finals)
-    median_final = np.median(finals)
+# --- Initial investment ---
+W0 = 30000
+N_sim = 100
+np.random.seed(2025)
 
-# --- Plot setup ---
-fig, ax = plt.subplots(figsize=(5.5, 3))  # smaller and consistent with other charts
+# --- Simulate 100 possible final balances ---
+# Example: assume annual growth ~ lognormal, 40 years (or adjust as needed)
+years = 40
+mu = 0.07      # expected return (7% per year)
+sigma = 0.15   # volatility (15% per year)
+finals = W0 * np.exp(np.cumsum(np.random.normal(mu, sigma, (N_sim, years)), axis=1)[:, -1])
 
-# Define bins (log scale)
-bins = np.logspace(np.log10(finals.min()), np.log10(finals.max()), 22)
+# --- Compute statistics ---
+mean_final = np.mean(finals)
+median_final = np.median(finals)
+max_final = np.max(finals)
+min_final = np.min(finals)
 
-# Histogram
-counts, bins, patches = ax.hist(
-    finals,
-    bins=bins,
-    edgecolor='black',
-    linewidth=1.0
-)
+# --- Plot histogram ---
+fig, ax = plt.subplots(figsize=(6.3, 3.7))
+bins = np.linspace(finals.min(), finals.max(), 20)
+counts, bins, patches = ax.hist(finals, bins=bins, edgecolor='black', linewidth=0.8)
 
-# --- Color bins by threshold ---
+# Color bars below/above initial investment
 for patch, left_edge in zip(patches, bins[:-1]):
     patch.set_facecolor("#ff6b6b" if left_edge < W0 else "#4db6ac")
 
-# --- Reference lines ---
-ax.axvline(W0, color="#d32f2f", linestyle="--", linewidth=2, label="Initial $30k")
-ax.axvline(np.mean(finals), color="#2e7d32", linestyle="-", linewidth=2, label="Mean")
-ax.axvline(np.median(finals), color="#1565c0", linestyle=":", linewidth=2, label="Median")
+# Reference lines
+ax.axvline(W0, color="#d32f2f", linestyle="--", linewidth=2, label=f"Initial ${W0:,.0f}")
+ax.axvline(mean_final, color="#2e7d32", linestyle="-", linewidth=2, label=f"Mean Balance (${mean_final:,.0f})")
+ax.axvline(median_final, color="#1565c0", linestyle=":", linewidth=2, label=f"Median Balance (${median_final:,.0f})")
 
-# --- Scales and formatting ---
-ax.set_xscale("log")
-ax.xaxis.set_major_formatter(FuncFormatter(lambda x, _: f"${x/1000:,.0f}k"))
-
-# --- Labels and styling ---
+# Axis formatting
+ax.xaxis.set_major_formatter(FuncFormatter(lambda x, _: f"${x:,.0f}"))
+ax.set_xlabel("Final Account Balance ($)", fontsize=9)
+ax.set_ylabel("Number of Simulations", fontsize=9)
 ax.set_title("Distribution of Final Balances Across 100 Simulations", fontsize=10, pad=8)
-ax.set_xlabel("Final Account Balance ($, log scale)", fontsize=9)
-ax.set_ylabel("Count", fontsize=9)
 ax.grid(axis='y', alpha=0.3, linestyle='--')
 
-# --- Legend below chart ---
+# Legend below chart
 ax.legend(loc='upper center', bbox_to_anchor=(0.5, -0.25), fontsize=8, frameon=False, ncol=2)
 
 plt.tight_layout(pad=1.0)
 plt.show()
+
+# --- Print summary statistics ---
+print(f"Initial investment: ${W0:,.2f}")
+print(f"Mean final balance: ${mean_final:,.2f}")
+print(f"Median final balance: ${median_final:,.2f}")
+print(f"Maximum final balance: ${max_final:,.2f}")
+print(f"Minimum final balance: ${min_final:,.2f}")
+
+# --- Probability of "happy" outcomes ---
+# Assuming "happy" = final ≥ initial investment
+p_gain = np.mean(finals >= W0)
+p_loss = np.mean(finals < W0)
+print(f"Probability(final ≥ ${W0:,}): {p_gain:.1%}")
+print(f"Probability(final < ${W0:,}): {p_loss:.1%}")
 
 
 
@@ -495,7 +505,7 @@ orig_res = simulate_full_bet(sims=sims, N=N, W0=W0)
 mod_res = simulate_fractional_bet(f=0.25, sims=sims, N=N, W0=W0)
 
 # ---- FIXED VISUALIZATION ----
-plt.figure(figsize=(10, 5))
+plt.figure(figsize=(8, 5.5))
 
 
 all_data = np.concatenate([orig_res, mod_res])
