@@ -229,7 +229,7 @@ Figure&nbsp;1: Generative DAG model for the investment game showing how wealth e
 <span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>PALETTE <span class="op">=</span> {<span class="st">"highlight"</span>: <span class="st">"orangered"</span>, <span class="st">"path"</span>: <span class="st">"steelblue"</span>}</span>
 <span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Plot ---</span></span>
-<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="fl">5.5</span>, <span class="dv">3</span>))  <span class="co"># compact size for GitHub/Quarto</span></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">5</span>))  <span class="co"># compact size for GitHub/Quarto</span></span>
 <span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a><span class="co"># Player paths</span></span>
 <span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n_paths):</span>
@@ -255,7 +255,7 @@ Expected value after one flip is 31500.00, which is a gain of 5.00% of your buy-
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="index_files/figure-html/q1-expected-value-py-output-2.png" id="q1-expected-value-py" width="519" height="271" class="figure-img"></p>
+<p><img src="index_files/figure-html/q1-expected-value-py-output-2.png" id="q1-expected-value-py" width="759" height="466" class="figure-img"></p>
 </figure>
 </div>
 </div>
@@ -296,7 +296,7 @@ Expected value after one flip is 31500.00, which is a gain of 5.00% of your buy-
 <span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>    W.append(W[<span class="op">-</span><span class="dv">1</span>] <span class="op">*</span> (<span class="fl">1.5</span> <span class="cf">if</span> win <span class="cf">else</span> <span class="fl">0.6</span>))</span>
 <span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Plot ---</span></span>
-<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">6</span>, <span class="fl">3.3</span>))  <span class="co"># compact size for GitHub/Quarto</span></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">5</span>))  <span class="co"># compact size for GitHub/Quarto</span></span>
 <span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>ax.plot(<span class="bu">range</span>(N <span class="op">+</span> <span class="dv">1</span>), W, marker<span class="op">=</span><span class="st">'o'</span>, linewidth<span class="op">=</span><span class="fl">1.8</span>,</span>
 <span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>        label<span class="op">=</span><span class="st">'Single Simulation Path'</span>, color<span class="op">=</span>PALETTE[<span class="st">"path"</span>])</span>
@@ -333,7 +333,7 @@ Expected value after one flip is 31500.00, which is a gain of 5.00% of your buy-
 <div class="cell-output cell-output-display">
 <div id="q2-single-sim-py" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><img src="index_files/figure-html/q2-single-sim-py-output-1.png" width="567" height="291" class="figure-img"></p>
+<p><img src="index_files/figure-html/q2-single-sim-py-output-1.png" width="759" height="455" class="figure-img"></p>
 <figcaption>Single 40-year simulation path (Ocean Blue palette)</figcaption>
 </figure>
 </div>
@@ -377,7 +377,7 @@ Final balance after 40 years: $9,118.25</code></pre>
 <span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>min_final <span class="op">=</span> np.<span class="bu">min</span>(finals)</span>
 <span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Plot histogram ---</span></span>
-<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="fl">6.3</span>, <span class="fl">3.7</span>))</span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize<span class="op">=</span>(<span class="dv">8</span>, <span class="dv">5</span>))</span>
 <span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>bins <span class="op">=</span> np.linspace(finals.<span class="bu">min</span>(), finals.<span class="bu">max</span>(), <span class="dv">20</span>)</span>
 <span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>counts, bins, patches <span class="op">=</span> ax.hist(finals, bins<span class="op">=</span>bins, edgecolor<span class="op">=</span><span class="st">'black'</span>, linewidth<span class="op">=</span><span class="fl">0.8</span>)</span>
 <span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a></span>
@@ -419,7 +419,7 @@ Final balance after 40 years: $9,118.25</code></pre>
 <div class="cell-output cell-output-display">
 <div id="q3-final-distribution-linear" class="quarto-figure quarto-figure-center anchored">
 <figure class="figure">
-<p><img src="index_files/figure-html/q3-final-distribution-linear-output-1.png" width="596" height="329" class="figure-img"></p>
+<p><img src="index_files/figure-html/q3-final-distribution-linear-output-1.png" width="759" height="455" class="figure-img"></p>
 <figcaption>Distribution of Final Balances Across 100 Simulations (Linear Scale)</figcaption>
 </figure>
 </div>
@@ -441,7 +441,7 @@ Probability(final &lt; $30,000): 0.0%</code></pre>
 <p>-About 72% of simulated outcomes were $30,000 or less, suggesting that most investors did not achieve strong growth.</p>
 <p>-Only around 28% of outcomes exceeded $30,000, meaning higher gains were relatively uncommon.</p>
 <p>-This indicates that the large-investment strategy still involves considerable risk — while a minority of cases yield high returns, the majority end up with moderate or lower balances.</p>
-<div id="a235c8f5" class="cell" data-execution_count="7">
+<div id="792b2753" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">## The code below simulates two investment strategies and plots a comparison histogram.</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
@@ -495,7 +495,7 @@ Probability(final &lt; $30,000): 0.0%</code></pre>
 </ol>
 <p>Summary</p>
 <p>The 25% bet strategy represents a safer, more controlled approach to investing or betting. It significantly reduces the likelihood of catastrophic loss and offers smoother, more predictable growth — but at the cost of missing out on the rare, massive wins seen in the full-bet strategy. In essence, it’s a clear demonstration of the risk–return trade-off: less risk brings steadier but smaller rewards.</p>
-<div id="c0ee0440" class="cell" data-execution_count="8">
+<div id="a4f993cd" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> matplotlib.ticker <span class="im">import</span> FuncFormatter</span>
